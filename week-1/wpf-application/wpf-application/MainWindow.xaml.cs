@@ -124,7 +124,7 @@ namespace wpf_application
                 lines[i] = bands[i].GetPrintableBand();
             }
 
-            File.WriteAllLines("bands", lines);
+            File.WriteAllLines("bands.txt", lines);
         }
         #endregion methods
 

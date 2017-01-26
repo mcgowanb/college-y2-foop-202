@@ -11,7 +11,6 @@ namespace wpf_application
         public String Name { get; set; }
         public List<Album> albums { get; set; }
 
-
         public String Genre { get
             {
                 return this.genre;

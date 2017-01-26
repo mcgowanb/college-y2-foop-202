@@ -14,10 +14,9 @@ namespace wpf_application
         static Random randomFactory = new Random();
         public Album()
         {
-            //randomFactory = new Random();
         }
 
-        public Album(String name) : this()
+        public Album(String name)
         {
             Name = name;
             Released = generateRandomNumber(1977, 2016);
