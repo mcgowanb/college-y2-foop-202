@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html>
+<body>
+
+<script>
+
+    function store2items() {
+        var person = "Mary Hamilton, Dublin, Ireland, Age:27"
+        var course = "Business, Dept. of Business, Lab Hours per week: 18";
+//	Create local storage for 2 items - these will be stored seperately		
+        sessionStorage.setItem('persondetails', person);
+        sessionStorage.setItem('coursedetails', course);
+    }
+
+    function getperson() {
+        //Get the details for the person
+        document.getElementById('output').innerHTML = "";
+        var person = sessionStorage.getItem('persondetails');
+        document.getElementById('output').innerHTML = person;
+    }
+
+    function getcourse() {
+        //Get the details for the course
+        document.getElementById('output').innerHTML = "";
+        var course = sessionStorage.getItem('coursedetails');
+        document.getElementById('output').innerHTML = course;
+    }
+
+    function clearcourse() {
+        //Just clear the course Object
+        sessionStorage.removeItem('coursedetails');
+    }
+
+    function clearperson() {
+        //Just clear the person Object
+        sessionStorage.removeItem('persondetails');
+    }
+
+    function clearall() {
+        //Clear all local storage for this page
+        sessionStorage.clear();
+    }
+
+</script>
+<br/>
+Name: <p id="output"></p>
+<input type=button value="Store" onclick="store2items()"/>
+<input type=button value="Get Person Details" onclick="getperson()"/>
+<input type=button value="Get Course Details" onclick="getcourse()"/>
+<input type=button value="Clear Course" onclick="clearcourse()"/>
+<input type=button value="Clear Person" onclick="clearperson()"/>
+<input type=button value="Clear All" onclick="clearall()"/>
+</body>
+</html>
