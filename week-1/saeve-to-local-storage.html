@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Exercises</title>
+</head>
+
+<body>
+<input type='file' id="upload" onchange="saveItemToLocalStorage(this)"/>
+<img id="image" src="#"/>
+<br>
+<br>
+<br>
+<input type="button" onclick="loadImage()" value="Get Image"/>
+<br>
+<br>
+<input type="button" onclick="localStorage.clear()" value="Clear Storage"/>
+
+
+<script>
+    function saveItemToLocalStorage(input) {
+        if (input.files && input.files[0]) {
+            getBase64(input.files[0]);
+        }
+    }
+    function getBase64(file) {
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function () {
+            localStorage.setItem("image", reader.result);
+            console.log(reader.result);
+        };
+        reader.onerror = function (error) {
+            console.log('Error: ', error);
+        };
+    }
+
+    function loadImage(){
+        var data = localStorage.getItem('image');
+        console.log(data);
+        var imageLocation = document.getElementById('image');
+        imageLocation.setAttribute("src" , data);
+    }
+</script>
+</body>
+</html>
