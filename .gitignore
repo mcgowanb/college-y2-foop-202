@@ -215,4 +215,9 @@ ClientBin/
 **.idea*
 
 #zip
+<<<<<<< HEAD
 **.zip
+=======
+**.zip
+**.mp4
+>>>>>>> 0fc083eead6f60c67946a753d618ea86ac14db2c
