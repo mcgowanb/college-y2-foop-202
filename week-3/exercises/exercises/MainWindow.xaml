@@ -1,0 +1,34 @@
+﻿<Window x:Class="exercises.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:exercises"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Content="Button1" Grid.Row="0" Grid.Column="0" />
+        <Button Content="Button2" Grid.Row="0" Grid.Column="1" />
+        <Button Content="Button3" Grid.Row="0" Grid.Column="2" />
+
+        <Button Content="Button4" Grid.Row="1" Grid.Column="0" />
+        <Button Content="Button5" Grid.Row="1" Grid.Column="1" />
+        <Button Content="Button6" Grid.Row="1" Grid.Column="2" />
+
+        <Button Content="Button7" Grid.Row="2" Grid.Column="0" />
+        <Button Content="Button8" Grid.Row="2" Grid.Column="1" />
+        <Button Content="Button9" Grid.Row="2" Grid.Column="2" />
+    </Grid>
+</Window>
+ 
