@@ -14,13 +14,14 @@ namespace CA_1
 
         }
 
-        public MotorBike(String make, String model, int Price, int year, String colour) : base (VehicleType.Motorbike)
+        public MotorBike(String make, String model, int Price, int year, String colour, int mileage) : base (VehicleType.Motorbike)
         {
             this.Make = make;
             this.Model = model;
             this.Price = Price;
             this.Year = year;
             this.Colour = colour;
+            this.Mileage = mileage;
         }
     }
 }

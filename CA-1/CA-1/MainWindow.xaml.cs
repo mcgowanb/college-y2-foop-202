@@ -24,7 +24,7 @@ namespace CA_1
     public partial class MainWindow : Window
     {
 
-        private ObservableCollection<Vehicle> vehicles;
+        private ObservableCollection<Vehicle> vehicleList;
         private ObservableCollection<Vehicle> filteredVehicles;
         private List<String> filterTypes;
         public MainWindow()
@@ -34,7 +34,7 @@ namespace CA_1
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            vehicles = new ObservableCollection<Vehicle>();
+            vehicleList = new ObservableCollection<Vehicle>();
             filteredVehicles = new ObservableCollection<Vehicle>();
             filterTypes = new List<String>();
             CreateFilterList();
@@ -44,14 +44,16 @@ namespace CA_1
 
         private void GenerateDummyList()
         {
-            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "green");
-            Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink");
-            Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow");
-            vehicles.Add(v1);
-            vehicles.Add(v2);
-            vehicles.Add(v3);
+            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "green", 120000);
+            v1.Image = "image Link";
+            v1.Description = "description text";
+            Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000);
+            Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
+            vehicleList.Add(v1);
+            vehicleList.Add(v2);
+            vehicleList.Add(v3);
 
-            lbxVehicleList.ItemsSource = vehicles;
+            lbxVehicleList.ItemsSource = vehicleList;
         }
 
         private void CreateFilterList()
@@ -73,11 +75,11 @@ namespace CA_1
             filteredVehicles.Clear();
             if (type == "All")
             {
-                lbxVehicleList.ItemsSource = vehicles;
+                lbxVehicleList.ItemsSource = vehicleList;
             }
             else
             {
-                foreach (var item in vehicles)
+                foreach (var item in vehicleList)
                 {
                     if (item.Type.ToString() .Equals(type))
                     {
@@ -90,9 +92,51 @@ namespace CA_1
 
         private void Button_Edit(object sender, RoutedEventArgs e)
         {
+            Button b = sender as Button;
+            //pass the object over if you want to edit the information
+            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
+            if (b.Content.ToString() == "Edit" && lbxVehicleList.SelectedItem != null)
+            {
+                Application.Current.Properties["vehicle"] = lbxVehicleList.SelectedItem as Vehicle;
+            }
             VehicleDetails details = new VehicleDetails();
             details.Owner = this;
-            details.Show();
+            details.ShowDialog();
+
+            lbxVehicleList.ItemsSource = null;
+            lbxVehicleList.ItemsSource = vehicleList;
+        }
+
+        private void cbxVehicleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            String selected = cbxVehicleFilter.SelectedItem as String;
+            SortVehicleList(selected);
+        }
+
+
+        private void SortVehicleList(String selected)
+        {
+            List<Vehicle> v = new List<Vehicle>(vehicleList);
+            IEnumerable<Vehicle> lst = vehicleList;
+
+            switch (selected)
+            {
+                case "Price":
+                    lst = vehicleList.OrderBy(i => i.Price);
+                    break;
+                case "Mileage":
+                    lst = vehicleList.OrderBy(i => i.Make);
+                    break;
+                case "Make":
+                    lst = vehicleList.OrderBy(i => i.Mileage);
+                    break;
+                default:
+                    lst = vehicleList;
+                    break;
+            }
+            lbxVehicleList.ItemsSource = null;
+            lbxVehicleList.ItemsSource = new ObservableCollection<Vehicle>(lst);
+            
         }
     }
 }

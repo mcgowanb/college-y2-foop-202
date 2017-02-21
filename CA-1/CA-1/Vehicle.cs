@@ -14,6 +14,7 @@ namespace CA_1
         public int Price { get; set; }
         public int Year { get; set; }
         public String Colour { get; set; }
+        public int Mileage { get; set; }
         public String Description { get; set; }
         public String Image { get; set; }
         //public String Type { get; set; }
@@ -27,7 +28,7 @@ namespace CA_1
 
         public override string ToString()
         {
-            return String.Format("{0} {1} {2}", Make, Model, Type);
+            return String.Format("{0} {1} {2} {3} {4}", Make, Model, Type, Colour, Mileage);
         }
 
         public override bool Equals(object obj)
