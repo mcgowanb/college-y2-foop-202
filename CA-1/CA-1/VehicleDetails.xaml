@@ -5,9 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CA_1"
         mc:Ignorable="d"
-        Title="VehicleDetails" Height="507" Width="300">
+        Title="Vehicle Details" Height="507" Width="300"
+        WindowStartupLocation="CenterOwner">
     <Window.Resources>
         <Style x:Key="boxPadding" TargetType="{x:Type Control}">
+            <Setter Property="Margin" Value="8" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style x:Key="blockPadding" TargetType="TextBlock">
             <Setter Property="Margin" Value="8" />
             <Setter Property="Padding" Value="0" />
         </Style>
@@ -56,7 +61,8 @@
         <TextBox Grid.Row="6"  Grid.Column="1" Name="txtBxBodyType" Style="{StaticResource boxPadding}"/>
 
         <Label Grid.Row="7" Grid.Column="0" Content="Description" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="7"  Grid.Column="1" Name="txtBxDescription" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="7"  Grid.Column="1" Name="txtBlkDescription" Style="{StaticResource boxPadding}" 
+                 TextWrapping="Wrap" AcceptsReturn="True"/>
 
         <Label Grid.Row="8" Grid.Column="0" Content="Image" Style="{StaticResource boxPadding}"/>
         <TextBox Grid.Row="8"  Grid.Column="1" Name="txtBxImage" Style="{StaticResource boxPadding}"/>

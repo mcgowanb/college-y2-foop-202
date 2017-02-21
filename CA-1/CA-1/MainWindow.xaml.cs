@@ -87,5 +87,12 @@ namespace CA_1
                 lbxVehicleList.ItemsSource = filteredVehicles;
             }
         }
+
+        private void Button_Edit(object sender, RoutedEventArgs e)
+        {
+            VehicleDetails details = new VehicleDetails();
+            details.Owner = this;
+            details.Show();
+        }
     }
 }
