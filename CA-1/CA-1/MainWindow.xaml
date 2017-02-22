@@ -8,7 +8,15 @@
         Title="Car Application" Height="627" Width="1134" WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded" Icon="images/car.png">
 
-    <Grid ShowGridLines="True">
+    <!--Binding the escape key to the App Shutodwn function-->
+    <Window.CommandBindings>
+        <CommandBinding Command="Close" Executed="CloseApp" />
+    </Window.CommandBindings>
+    <Window.InputBindings>
+        <KeyBinding Command="Close" Key="Escape" />
+    </Window.InputBindings>
+
+    <Grid ShowGridLines="False">
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="6*" />
@@ -31,20 +39,20 @@
 
             <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="/images/all.png" />
-                <RadioButton Margin="10" Content="All" VerticalAlignment="Center" GroupName="CarType" Click="CarType_Click"/>
+                <RadioButton Margin="10" Content="All" VerticalAlignment="Center" GroupName="CarType" Click="CarTypeFilter_Click"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="/images/car.png" />
-                <RadioButton Margin="10" Content="Cars" VerticalAlignment="Center" GroupName="CarType" Click="CarType_Click"/>
+                <RadioButton Margin="10" Content="Cars" VerticalAlignment="Center" GroupName="CarType" Click="CarTypeFilter_Click"/>
             </StackPanel>
             <StackPanel Grid.Column="2" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="/images/motorbike.png" />
-                <RadioButton Margin="10" Content="Motorbikes" VerticalAlignment="Center" GroupName="CarType" Click="CarType_Click"/>
+                <RadioButton Margin="10" Content="Motorbikes" VerticalAlignment="Center" GroupName="CarType" Click="CarTypeFilter_Click"/>
             </StackPanel>
             <StackPanel Grid.Column="3" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                 <Image Source="/images/van.png" />
-                <RadioButton Margin="10" Content="Vans" VerticalAlignment="Center" GroupName="CarType" Click="CarType_Click"/>
+                <RadioButton Margin="10" Content="Vans" VerticalAlignment="Center" GroupName="CarType" Click="CarTypeFilter_Click"/>
             </StackPanel>
         </Grid>
         <!--End Heading Buttons-->
@@ -57,7 +65,8 @@
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
                 <Label Content="Sort By" Margin="0,0,0,-13" />
-                <ComboBox x:Name="cbxVehicleFilter" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" SelectionChanged="cbxVehicleFilter_SelectionChanged"/>
+                <ComboBox x:Name="cbxVehicleFilter" HorizontalAlignment="Right" VerticalAlignment="Top" 
+                          Width="120" SelectionChanged="cbxVehicleFilter_SelectionChanged"/>
             </StackPanel>
 
             <ListBox Grid.Row="1" x:Name="lbxVehicleList" Margin="10" />
@@ -74,7 +83,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            
+
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="1" Content="Load" />
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="2" Content="Save" />
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="3" Content="Add" Click="Button_Edit"/>

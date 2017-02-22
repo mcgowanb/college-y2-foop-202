@@ -41,11 +41,15 @@ namespace CA_1
             GenerateDummyList();
         }
 
+        private void CloseApp(object sender, ExecutedRoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
+        }
 
         private void GenerateDummyList()
         {
-            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "green", 120000);
-            v1.Image = "image Link";
+            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#00FF00", 120000);
+            v1.Image = "focus.png";
             v1.Description = "description text";
             Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000);
             Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
@@ -62,7 +66,7 @@ namespace CA_1
             cbxVehicleFilter.ItemsSource = s;
         }
 
-        private void CarType_Click(object sender, RoutedEventArgs e)
+        private void CarTypeFilter_Click(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
             String selected = rb.Content.ToString().Singularize(inputIsKnownToBePlural: false);
@@ -99,9 +103,18 @@ namespace CA_1
             {
                 Application.Current.Properties["vehicle"] = lbxVehicleList.SelectedItem as Vehicle;
             }
+            //opening new window
             VehicleDetails details = new VehicleDetails();
             details.Owner = this;
             details.ShowDialog();
+
+            //create new object for the list if user added it
+            if(Application.Current.Properties["vehicle"] != null){
+                Vehicle nVehicle = Application.Current.Properties["vehicle"] as Vehicle;
+                vehicleList.Add(nVehicle);
+                //removing the passed object, so not to create duplicates if canclling the add operation
+                Application.Current.Properties["vehicle"] = null;
+            }
 
             lbxVehicleList.ItemsSource = null;
             lbxVehicleList.ItemsSource = vehicleList;
@@ -113,7 +126,10 @@ namespace CA_1
             SortVehicleList(selected);
         }
 
-
+        /// <summary>
+        /// Sorts list by price, make or type
+        /// Want to change this to an enum if possible.
+        /// </summary>
         private void SortVehicleList(String selected)
         {
             List<Vehicle> v = new List<Vehicle>(vehicleList);
