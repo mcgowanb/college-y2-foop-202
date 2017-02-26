@@ -85,7 +85,7 @@ namespace CA_1
             {
                 foreach (var item in vehicleList)
                 {
-                    if (item.Type.ToString() .Equals(type))
+                    if (item.Type.ToString().Equals(type))
                     {
                         filteredVehicles.Add(item);
                     }
@@ -109,7 +109,8 @@ namespace CA_1
             details.ShowDialog();
 
             //create new object for the list if user added it
-            if(Application.Current.Properties["vehicle"] != null){
+            if (Application.Current.Properties["vehicle"] != null)
+            {
                 Vehicle nVehicle = Application.Current.Properties["vehicle"] as Vehicle;
                 vehicleList.Add(nVehicle);
                 //removing the passed object, so not to create duplicates if canclling the add operation
@@ -152,13 +153,13 @@ namespace CA_1
             }
             lbxVehicleList.ItemsSource = null;
             lbxVehicleList.ItemsSource = new ObservableCollection<Vehicle>(lst);
-            
+
         }
 
         private void lbxVehicleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
-            if(v != null)
+            if (v != null)
                 UpdateDisplay(v);
         }
 
@@ -170,6 +171,18 @@ namespace CA_1
             lblYear.Content = v.Year.ToString();
             lblMileage.Content = v.Mileage;
             lblDesc.Text = v.Description;
+            BitmapImage image;
+            if (v.Image != null)
+            {
+                String dir = Utility.GetImageDirectory();
+                image = new BitmapImage(new Uri(String.Format("{0}\\{1}", dir, v.Image), UriKind.Absolute));
+            }
+            else
+            {
+                image = new BitmapImage();
+            }
+            imgVehicle.Source = image;
+
         }
     }
 }

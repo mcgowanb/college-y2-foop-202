@@ -134,7 +134,7 @@
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
             <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Vehicle Details" Style="{StaticResource detailLabel}"/>
-            <Image Grid.Row="1" Grid.ColumnSpan="2" Source="/images/focus.png" Margin="5"/>
+            <Image Grid.Row="1" Grid.ColumnSpan="2" Name="imgVehicle" Margin="5"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Make:" Style="{StaticResource lblDetails}"/>
             <Label Name="lblMake" Grid.Row="2" Grid.Column="2" Style="{StaticResource lblDetailResults}"/>
