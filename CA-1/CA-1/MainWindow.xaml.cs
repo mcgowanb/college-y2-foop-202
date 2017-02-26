@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -38,7 +39,7 @@ namespace CA_1
             filteredVehicles = new ObservableCollection<Vehicle>();
             filterTypes = new List<String>();
             CreateFilterList();
-            GenerateDummyList();
+            //GenerateDummyList();
         }
 
         private void CloseApp(object sender, ExecutedRoutedEventArgs e)
@@ -50,12 +51,12 @@ namespace CA_1
         {
             Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#80FF0000", 120000);
             v1.Image = "focus.png";
-            v1.Description = "description text and some more \nblah blah blah more text yet more text again and so on and so on and so on";
+            v1.Description = "description text and some more blah blah blah more text yet more text again and so on and so on and so on";
             Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000, VanBodyType.CombiVan, WheelBase.Short);
             Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
             vehicleList.Add(v1);
-            vehicleList.Add(v2);
-            vehicleList.Add(v3);
+            //vehicleList.Add(v2);
+            //vehicleList.Add(v3);
 
             lbxVehicleList.ItemsSource = vehicleList;
         }
@@ -183,6 +184,37 @@ namespace CA_1
             }
             imgVehicle.Source = image;
 
+        }
+
+        private bool WriteDataToFile()
+        {
+            String dir = Utility.GetWorkingDirectory();
+            String[] lines = new String[lbxVehicleList.Items.Count];
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                Vehicle v = lbxVehicleList.Items.GetItemAt(i) as Vehicle;
+                lines[i] = v.LineDataForFile();
+            }
+
+            try
+            {
+                File.WriteAllLines(dir + "vehicles.txt", lines);
+                return true;
+            }
+            catch (IOException e)
+            {
+                MessageBox.Show("Error Saving File");
+                return false;
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            if (WriteDataToFile())
+            {
+                MessageBox.Show("File Saved Successfully");
+            }
         }
     }
 }

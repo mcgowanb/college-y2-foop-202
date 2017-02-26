@@ -51,5 +51,13 @@ namespace CA_1
             currentDir = gParent.FullName;
             return currentDir + "\\images\\";
         }
+
+        public static String GetWorkingDirectory()
+        {
+            string currentDir = Directory.GetCurrentDirectory();
+            DirectoryInfo parent = Directory.GetParent(currentDir);
+            DirectoryInfo gParent = parent.Parent;
+            return gParent.FullName + "\\";
+        }
     }
 }

@@ -39,6 +39,7 @@ namespace CA_1
                 return String.Format("{0} {1} {2} {3} {4}", Make, Model, Type, Colour, Mileage);
         }
 
+        public abstract String LineDataForFile();
     }
 
 
