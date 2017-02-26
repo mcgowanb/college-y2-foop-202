@@ -26,16 +26,19 @@ namespace CA_1
             Type = type;
         }
 
-        public override string ToString()
+        public String IconPath
         {
-            return String.Format("{0} {1} {2} {3} {4}", Make, Model, Type, Colour, Mileage);
+            get {
+                return String.Format("/images/{0}.png", Type.ToString().ToLower());
+            }
         }
 
-        public override bool Equals(object obj)
+        public override string ToString()
         {
-            Vehicle tmp = obj as Vehicle;
-            return this.Type.Equals(tmp.Type);
+          
+                return String.Format("{0} {1} {2} {3} {4}", Make, Model, Type, Colour, Mileage);
         }
+
     }
 
 

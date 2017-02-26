@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:CA_1"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="Vehicle Details" Height="650" Width="450"
-        WindowStartupLocation="CenterOwner" Loaded="Window_Loaded">
+        Title="Vehicle Details" Height="732" Width="450"
+        WindowStartupLocation="CenterOwner" Loaded="Window_Loaded"
+        Icon="images/car.png">
 
     <!--Binding the escape key to the App Shutodwn function-->
     <Window.CommandBindings>
@@ -32,43 +33,50 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Label Grid.Column="0" Grid.Row="0" Content="Type" Style="{StaticResource boxPadding}"/>
-        <ComboBox Grid.Column="1" Grid.Row="0" SelectedIndex="0" Name="cbxType" Style="{StaticResource boxPadding}"/>
+        <Label Name="lblTitle" Grid.Row="0" Grid.ColumnSpan="2" Content="Edit Vehicle" Style="{StaticResource detailLabel}"/>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Make" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="1"  Grid.Column="1" Name="txtBxMake" Style="{StaticResource boxPadding}" />
+        <Label Grid.Row="1" Grid.Column="0"  Content="Type" Style="{StaticResource boxPadding}"/>
+        <ComboBox  Grid.Row="1" Grid.Column="1" SelectedIndex="0" Name="cbxType" Style="{StaticResource boxPadding}" SelectionChanged="cbxType_SelectionChanged"/>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Model" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="2"  Grid.Column="1" Name="txtBxModel" Style="{StaticResource boxPadding}"/>
+        <Label Grid.Row="2" Grid.Column="0" Content="Make" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="2"  Grid.Column="1" Name="txtBxMake" Style="{StaticResource boxPadding}" />
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Price" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="3"  Grid.Column="1" Name="txtBxPrice" Style="{StaticResource boxPadding}"/>
+        <Label Grid.Row="3" Grid.Column="0" Content="Model" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="3"  Grid.Column="1" Name="txtBxModel" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="Year" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="4"  Grid.Column="1" Name="txtBxYear" Style="{StaticResource boxPadding}"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Price" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="4"  Grid.Column="1" Name="txtBxPrice" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Colour" Style="{StaticResource boxPadding}"/>
-        <xctk:ColorPicker Grid.Row="5"  Grid.Column="1" Name="ClrPckerColour" DisplayColorAndName="True" Style="{StaticResource boxPadding}"></xctk:ColorPicker>
+        <Label Grid.Row="5" Grid.Column="0" Content="Year" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="5"  Grid.Column="1" Name="txtBxYear" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Mileage" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="6"  Grid.Column="1" Name="txtBxMileage" Style="{StaticResource boxPadding}"/>
+        <Label Grid.Row="6" Grid.Column="0" Content="Colour" Style="{StaticResource boxPadding}"/>
+        <xctk:ColorPicker Grid.Row="6"  Grid.Column="1" Name="ClrPckerColour" DisplayColorAndName="True" Style="{StaticResource boxPadding}"></xctk:ColorPicker>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Body Type" Style="{StaticResource boxPadding}"/>
-        <ListBox Grid.Row="7"  Grid.Column="1" Name="lbxBxBodyType" Style="{StaticResource boxPadding}"/>
+        <Label Grid.Row="7" Grid.Column="0" Content="Mileage" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="7"  Grid.Column="1" Name="txtBxMileage" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="Description" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="8"  Grid.Column="1" Name="txtBxDescription" Style="{StaticResource boxPadding}" 
+        <Label Grid.Row="8" Grid.Column="0" Content="Body Type (Van only)" Style="{StaticResource boxPadding}"/>
+        <ComboBox Grid.Row="8"  Grid.Column="1" Name="cbxBodyTypes" Style="{StaticResource boxPadding}"/>
+
+        <Label Grid.Row="9" Grid.Column="0" Content="WheelBase (Van only)" Style="{StaticResource boxPadding}"/>
+        <ComboBox Grid.Row="9"  Grid.Column="1" Name="cbxWheelBase" Style="{StaticResource boxPadding}"/>
+
+        <Label Grid.Row="10" Grid.Column="0" Content="Description" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="10"  Grid.Column="1" Name="txtBxDescription" Style="{StaticResource boxPadding}" 
                  TextWrapping="Wrap" AcceptsReturn="True"/>
 
-        <Label Grid.Row="9" Grid.Column="0" Content="Image" Style="{StaticResource boxPadding}"/>
-        <TextBox Grid.Row="9"  Grid.Column="1" Name="txtBxImage" IsReadOnly="True" Text="Double Click to add...." Style="{StaticResource boxPadding}" MouseDoubleClick="txtBxImage_DblClick"/>
+        <Label Grid.Row="11" Grid.Column="0" Content="Image" Style="{StaticResource boxPadding}"/>
+        <TextBox Grid.Row="11"  Grid.Column="1" Name="txtBxImage" IsReadOnly="True" Text="Double Click to add...." Style="{StaticResource boxPadding}" MouseDoubleClick="txtBxImage_DblClick"/>
 
-        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="10">
+        <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="12">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

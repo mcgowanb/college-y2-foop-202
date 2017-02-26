@@ -48,10 +48,10 @@ namespace CA_1
 
         private void GenerateDummyList()
         {
-            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#00FF00", 120000);
+            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#80FF0000", 120000);
             v1.Image = "focus.png";
-            v1.Description = "description text";
-            Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000);
+            v1.Description = "description text and some more \nblah blah blah more text yet more text again and so on and so on and so on";
+            Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000, VanBodyType.CombiVan, WheelBase.Short);
             Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
             vehicleList.Add(v1);
             vehicleList.Add(v2);
@@ -153,6 +153,23 @@ namespace CA_1
             lbxVehicleList.ItemsSource = null;
             lbxVehicleList.ItemsSource = new ObservableCollection<Vehicle>(lst);
             
+        }
+
+        private void lbxVehicleList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
+            if(v != null)
+                UpdateDisplay(v);
+        }
+
+        private void UpdateDisplay(Vehicle v)
+        {
+            lblMake.Content = v.Make;
+            lblModel.Content = v.Model;
+            lblPrice.Content = String.Format("{0:c2}", v.Price);
+            lblYear.Content = v.Year.ToString();
+            lblMileage.Content = v.Mileage;
+            lblDesc.Text = v.Description;
         }
     }
 }
