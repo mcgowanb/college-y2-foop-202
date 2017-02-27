@@ -41,7 +41,6 @@ namespace CA_1
             filterTypes = new List<String>();
             CreateFilterList();
             lbxVehicleList.ItemsSource = vehicleList;
-            //GenerateDummyList();
         }
 
         private void CloseApp(object sender, ExecutedRoutedEventArgs e)
@@ -49,26 +48,21 @@ namespace CA_1
             Application.Current.Shutdown();
         }
 
-        private void GenerateDummyList()
-        {
-            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#80FF0000", 120000, CarBodyType.Convertible);
-            v1.Image = "focus.png";
-            v1.Description = "description text and some more blah blah blah more text yet more text again and so on and so on and so on";
-            Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000, VanBodyType.CombiVan, WheelBase.Short);
-            Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
-            vehicleList.Add(v1);
-            vehicleList.Add(v2);
-            vehicleList.Add(v3);
-
-            lbxVehicleList.ItemsSource = vehicleList;
-        }
-
+        /// <summary>
+        /// Filtered list options for the combobox on main screen
+        /// </summary>
         private void CreateFilterList()
         {
             string[] s = { "Price", "Mileage", "Make" };
             cbxVehicleFilter.ItemsSource = s;
         }
 
+        /// <summary>
+        /// filtering by car type when radio button is clicked. Uses Singularise dependency to convert plural
+        /// words into singular to match the enums
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CarTypeFilter_Click(object sender, RoutedEventArgs e)
         {
             RadioButton rb = sender as RadioButton;
@@ -76,6 +70,11 @@ namespace CA_1
             FilterList(selected);
         }
 
+
+        /// <summary>
+        /// Filters list by type of vehicle
+        /// </summary>
+        /// <param name="type"></param>
         private void FilterList(String type)
         {
             lbxVehicleList.ItemsSource = "";
@@ -97,7 +96,14 @@ namespace CA_1
             }
         }
 
-        private void Button_Edit(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// Gathers object information and passes it to a new window
+        /// to allow the object to be modified. If the Add button was pressed, then dont' try to 
+        /// add an object to the next window since it won't exist
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Button_Add_Edit(object sender, RoutedEventArgs e)
         {
             Button b = sender as Button;
             //pass the object over if you want to edit the information
@@ -123,6 +129,7 @@ namespace CA_1
             lbxVehicleList.ItemsSource = null;
             lbxVehicleList.ItemsSource = vehicleList;
         }
+
 
         private void cbxVehicleFilter_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -166,6 +173,11 @@ namespace CA_1
                 UpdateDisplay(v);
         }
 
+        /// <summary>
+        /// Updates main right hand side display with vehicle icon and image for the 
+        /// object
+        /// </summary>
+        /// <param name="v"></param>
         private void UpdateDisplay(Vehicle v)
         {
             lblMake.Content = v.Make;
@@ -188,6 +200,10 @@ namespace CA_1
 
         }
 
+        /// <summary>
+        /// Saves data to a text file
+        /// </summary>
+        /// <returns></returns>
         private bool WriteDataToFile()
         {
             String dir = Utility.GetWorkingDirectory();
@@ -219,10 +235,16 @@ namespace CA_1
             }
         }
 
+        /// <summary>
+        /// reads data from a file. This needs to be abstracted
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
             String dir = Utility.GetWorkingDirectory();
             String[] lines = File.ReadAllLines(dir + FILE_NAME);
+            vehicleList.Clear();
 
             foreach (var line in lines)
             {
@@ -250,6 +272,11 @@ namespace CA_1
 
         }
 
+        /// <summary>
+        /// Deletes an object from the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             Vehicle v = lbxVehicleList.SelectedItem as Vehicle;

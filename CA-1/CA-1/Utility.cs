@@ -42,7 +42,10 @@ namespace CA_1
         }
 
 
-
+        /// <summary>
+        /// Utility method for getting the current image directory
+        /// </summary>
+        /// <returns></returns>
         public static String GetImageDirectory()
         {
             string currentDir = Directory.GetCurrentDirectory();
@@ -52,6 +55,10 @@ namespace CA_1
             return currentDir + "\\images\\";
         }
 
+        /// <summary>
+        /// gets the current project working directory
+        /// </summary>
+        /// <returns></returns>
         public static String GetWorkingDirectory()
         {
             string currentDir = Directory.GetCurrentDirectory();
@@ -66,9 +73,16 @@ namespace CA_1
         /// <returns></returns>
         public static VehicleType GetVehicleType(String t)
         {
-            VehicleType vType;
-            Enum.TryParse(t.ToString(), out vType);
-            return vType;
+            VehicleType vt;
+            try
+            {
+                Enum.TryParse(t.ToString(), out vt);
+            }
+            catch (NullReferenceException e)
+            {
+                vt = VehicleType.Car;
+            }
+            return vt;
         }
     }
 }
