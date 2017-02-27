@@ -204,10 +204,11 @@ namespace CA_1
         /// Saves data to a text file
         /// </summary>
         /// <returns></returns>
-        private bool WriteDataToFile()
+        private String WriteDataToFile()
         {
             String dir = Utility.GetWorkingDirectory();
             String[] lines = new String[vehicleList.Count];
+            String message = "File Saved Successfully";
 
             for (int i = 0; i < lines.Length; i++)
             {
@@ -217,22 +218,18 @@ namespace CA_1
 
             try
             {
-                File.WriteAllLines(dir + FILE_NAME, lines);
-                return true;
+                new FileHandler().WriteDataToFile(FILE_NAME, dir, lines);
             }
             catch (IOException e)
             {
-                MessageBox.Show("Error Saving File");
-                return false;
+                message = "Error Saving File" + e.Message;
             }
+            return message;
         }
 
         private void ButtonWrite_Click(object sender, RoutedEventArgs e)
         {
-            if (WriteDataToFile())
-            {
-                MessageBox.Show("File Saved Successfully");
-            }
+            MessageBox.Show(WriteDataToFile());
         }
 
         /// <summary>
@@ -242,10 +239,44 @@ namespace CA_1
         /// <param name="e"></param>
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            String dir = Utility.GetWorkingDirectory();
-            String[] lines = File.ReadAllLines(dir + FILE_NAME);
-            vehicleList.Clear();
+            LoadDataFromFile();
+        }
 
+        /// <summary>
+        /// Deletes an object from the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
+            vehicleList.Remove(v);
+        }
+
+        /// <summary>
+        /// loads data from a file, throws and handles exception if needs be
+        /// </summary>
+        private void LoadDataFromFile()
+        {
+            try
+            {
+                FileHandler fh = new FileHandler();
+                String[] lines = fh.ReadLinesFromFile(FILE_NAME, Utility.GetWorkingDirectory());
+                vehicleList.Clear();
+                CreateListFromFile(lines);
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Parses the array of strings and creates objects from it
+        /// </summary>
+        /// <param name="lines"></param>
+        private void CreateListFromFile(String[] lines)
+        {
             foreach (var line in lines)
             {
                 Vehicle v;
@@ -269,18 +300,6 @@ namespace CA_1
                 if (v != null)
                     vehicleList.Add(v);
             }
-
-        }
-
-        /// <summary>
-        /// Deletes an object from the list
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
-        {
-            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
-            vehicleList.Remove(v);
         }
     }
 }

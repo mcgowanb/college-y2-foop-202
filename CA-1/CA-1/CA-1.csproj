@@ -85,6 +85,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Car.cs" />
+    <Compile Include="FileHandler.cs" />
     <Compile Include="MotorBike.cs" />
     <Compile Include="Utility.cs" />
     <Compile Include="Van.cs" />
