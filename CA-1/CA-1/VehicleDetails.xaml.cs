@@ -42,9 +42,10 @@ namespace CA_1
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            SetListValues();
+            VehicleType vt;
             if (Application.Current.Properties["vehicle"] != null)
             {
+                //we are editing an object, so set the data fields accordingly
                 isEdit = true;
                 action = "Edit";
                 Vehicle tmp = (Vehicle)Application.Current.Properties["vehicle"];
@@ -52,10 +53,21 @@ namespace CA_1
                 Application.Current.Properties["vehicle"] = null;
                 originalFilePath = v.Image ?? txtBxImage.Text;
                 PopulateVehicleData();
+                vt = Utility.GetVehicleType(v.Type.ToString());
             }
-            else originalFilePath = txtBxImage.Text;
+            else
+            {
+                //new vehicle object, so default to car and set the original file path so we know its changed
+                //when an image gets added
+                originalFilePath = txtBxImage.Text;
+                vt = VehicleType.Car;
+            }
+            //set vehicle type and wheelbase lists
+            SetListValues();
+            //contextually set the body types depending on car or van
+            SetBodyTypeLists(vt);
+            //if it add, set the label to add {VehicleType} or else Edit {Vehicle Type}
             SetLabelAndTypeState();
-            SetVanFieldStates();
         }
 
         /// <summary>
@@ -82,15 +94,49 @@ namespace CA_1
         }
 
         /// <summary>
-        /// Set Vehicle Types and van details
+        /// On add or edit, this method checks the type of vehicle and sets the permissions, labels and content of 
+        /// the combo boxes that are specific for each vehicle type, disabling them if it is a motorbike
+        /// </summary>
+        /// <param name="type"></param>
+        private void SetBodyTypeLists(VehicleType type)
+        {
+            List<String> types = new List<String>();
+            cbxWheelBase.IsHitTestVisible = false;
+            cbxWheelBase.Focusable = false;
+            cbxBodyTypes.IsHitTestVisible = true;
+            cbxBodyTypes.Focusable = true;
+            lblWheelBase.Content = "WheelBase (N/A)";
+
+            switch (type)
+            {
+                case VehicleType.Car:
+                    types = Enum.GetNames(typeof(CarBodyType)).ToList();
+                    lblBodyType.Content = "Body Type (Car)";
+                    break;
+                case VehicleType.Van:
+                    types = Enum.GetNames(typeof(VanBodyType)).ToList();
+                    lblBodyType.Content = "Body Type (Van)";
+                    lblWheelBase.Content = "WheelBase (Van Only)";
+                    cbxWheelBase.IsHitTestVisible = true;
+                    cbxWheelBase.Focusable = true;
+                    break;
+                default:
+                    lblBodyType.Content = "Body Type (N/A)";
+                    cbxBodyTypes.IsHitTestVisible = false;
+                    cbxBodyTypes.Focusable = false;
+                    break;
+            }
+            cbxBodyTypes.ItemsSource = types;
+        }
+
+        /// <summary>
+        /// Set Vehicle Types and van details. Only needed on on load as the lists do not change regardless of 
+        /// the vehicle type. all that happens is the field is read only or not.
         /// </summary>
         private void SetListValues()
         {
             List<String> types = Enum.GetNames(typeof(VehicleType)).ToList();
             cbxType.ItemsSource = types;
-
-            List<String> bodyTypes = Enum.GetNames(typeof(VanBodyType)).ToList();
-            cbxBodyTypes.ItemsSource = bodyTypes;
 
             List<String> wheelBases = Enum.GetNames(typeof(WheelBase)).ToList();
             cbxWheelBase.ItemsSource = wheelBases;
@@ -134,6 +180,10 @@ namespace CA_1
                 cbxBodyTypes.SelectedItem = nVan.BodyType.ToString();
                 cbxWheelBase.SelectedItem = nVan.WheelBase.ToString();
             }
+            else if(v.Type.Equals(VehicleType.Car)){
+                Car nCar = v as Car;
+                cbxBodyTypes.SelectedItem = nCar.CarType.ToString();
+            }
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -164,13 +214,13 @@ namespace CA_1
             switch (type)
             {
                 case VehicleType.Car:
-                    v = new Car();
+                    v = new Car() { CarType = GetCarBodyType(cbxBodyTypes) };
                     break;
                 case VehicleType.Motorbike:
                     v = new MotorBike();
                     break;
                 case VehicleType.Van:
-                    v = new Van(GetBodyType(cbxBodyTypes), GetWheelBaseType(cbxWheelBase));
+                    v = new Van(GetVanBodyType(cbxBodyTypes), GetWheelBaseType(cbxWheelBase));
                     break;
                 default:
                     v = null;
@@ -245,15 +295,23 @@ namespace CA_1
             {
                 nVan = v as Van;
                 nVan.WheelBase = GetWheelBaseType(cbxWheelBase);
-                nVan.BodyType = GetBodyType(cbxBodyTypes);
+                nVan.BodyType = GetVanBodyType(cbxBodyTypes);
                 v = nVan;
+            }
+            else if (v.Type.Equals(VehicleType.Car))
+            {
+                Car nCar = v as Car;
+                nCar.CarType = GetCarBodyType(cbxBodyTypes);
+                v = nCar;
             }
         }
 
         private void cbxType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            VehicleType t = Utility.GetVehicleType(cbxType.SelectedItem.ToString());
+            SetBodyTypeLists(t);
             SetLabelAndTypeState();
-            SetVanFieldStates();
+            //SetVanFieldStates();
         }
 
         /// <summary>
@@ -271,22 +329,6 @@ namespace CA_1
             cbxType.Focusable = !isEdit;
 
         }
-
-        /// <summary>
-        /// Van is the only vehicle that has a body type or whelbase, so I'm disabling this field
-        /// for all other vehicles than a van, as its not used
-        /// </summary>
-        private void SetVanFieldStates()
-        {
-            VehicleType t = Utility.GetVehicleType(cbxType.SelectedItem.ToString());
-            bool canEdit = t.Equals(VehicleType.Van);
-            cbxWheelBase.IsHitTestVisible = canEdit;
-            cbxWheelBase.Focusable = canEdit;
-            cbxBodyTypes.IsHitTestVisible = canEdit;
-            cbxBodyTypes.Focusable = canEdit;
-        }
-
-       
 
         /// <summary>
         /// Converts String to Enum Type. Returns unlsited on unset values
@@ -312,7 +354,7 @@ namespace CA_1
         /// </summary>
         /// <param name="cBox"></param>
         /// <returns></returns>
-        private VanBodyType GetBodyType(ComboBox cBox)
+        private VanBodyType GetVanBodyType(ComboBox cBox)
         {
             try
             {
@@ -323,6 +365,25 @@ namespace CA_1
             catch (NullReferenceException e)
             {
                 return VanBodyType.Unlisted;
+            }
+        }
+
+        /// <summary>
+        /// Converts String to Enum Type  Returns unlsited on unset values
+        /// </summary>
+        /// <param name="cBox"></param>
+        /// <returns></returns>
+        private CarBodyType GetCarBodyType(ComboBox cBox)
+        {
+            try
+            {
+                CarBodyType ct;
+                Enum.TryParse(cBox.SelectedItem.ToString(), out ct);
+                return ct;
+            }
+            catch (NullReferenceException e)
+            {
+                return CarBodyType.Unlisted;
             }
         }
     }

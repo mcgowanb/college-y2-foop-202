@@ -63,10 +63,10 @@
         <Label Grid.Row="7" Grid.Column="0" Content="Mileage" Style="{StaticResource boxPadding}"/>
         <TextBox Grid.Row="7"  Grid.Column="1" Name="txtBxMileage" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="8" Grid.Column="0" Content="Body Type (Van only)" Style="{StaticResource boxPadding}"/>
+        <Label Name="lblBodyType" Grid.Row="8" Grid.Column="0" Style="{StaticResource boxPadding}"/>
         <ComboBox Grid.Row="8"  Grid.Column="1" Name="cbxBodyTypes" Style="{StaticResource boxPadding}"/>
 
-        <Label Grid.Row="9" Grid.Column="0" Content="WheelBase (Van only)" Style="{StaticResource boxPadding}"/>
+        <Label Name="lblWheelBase" Grid.Row="9" Grid.Column="0"  Style="{StaticResource boxPadding}"/>
         <ComboBox Grid.Row="9"  Grid.Column="1" Name="cbxWheelBase" Style="{StaticResource boxPadding}"/>
 
         <Label Grid.Row="10" Grid.Column="0" Content="Description" Style="{StaticResource boxPadding}"/>

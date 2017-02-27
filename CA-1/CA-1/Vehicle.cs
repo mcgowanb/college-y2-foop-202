@@ -28,17 +28,33 @@ namespace CA_1
 
         public String IconPath
         {
-            get {
+            get
+            {
                 return String.Format("/images/{0}.png", Type.ToString().ToLower());
             }
         }
 
         public override string ToString()
         {
-          
-                return String.Format("{0} {1} {2} {3} {4}", Make, Model, Type, Colour, Mileage);
+
+           return String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
+           this.Type,
+           this.Make,
+           this.Model,
+           this.Price,
+           this.Year,
+           this.Colour,
+           this.Mileage,
+           this.Description,
+           this.Image
+           );
         }
 
+        /// <summary>
+        /// Could have done this, and have also implemented in ToString, but I have implemented the 
+        /// abstract method to show that I know how to use it.
+        /// </summary>
+        /// <returns></returns>
         public abstract String LineDataForFile();
 
 

@@ -51,7 +51,7 @@ namespace CA_1
 
         private void GenerateDummyList()
         {
-            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#80FF0000", 120000);
+            Vehicle v1 = new Car("Ford", "Focus", 24000, 2010, "#80FF0000", 120000, CarBodyType.Convertible);
             v1.Image = "focus.png";
             v1.Description = "description text and some more blah blah blah more text yet more text again and so on and so on and so on";
             Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000, VanBodyType.CombiVan, WheelBase.Short);
@@ -191,11 +191,11 @@ namespace CA_1
         private bool WriteDataToFile()
         {
             String dir = Utility.GetWorkingDirectory();
-            String[] lines = new String[lbxVehicleList.Items.Count];
+            String[] lines = new String[vehicleList.Count];
 
             for (int i = 0; i < lines.Length; i++)
             {
-                Vehicle v = lbxVehicleList.Items.GetItemAt(i) as Vehicle;
+                Vehicle v = vehicleList.ElementAt(i) as Vehicle;
                 lines[i] = v.LineDataForFile();
             }
 
@@ -248,6 +248,12 @@ namespace CA_1
                     vehicleList.Add(v);
             }
 
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
+            vehicleList.Remove(v);
         }
     }
 }

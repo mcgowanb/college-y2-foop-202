@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace CA_1
 {
-    enum VanBodyType { CombiVan, Dropside, PanelVan, Pickup, Tipper, Unlisted}
-    enum WheelBase { Short, Medium, Long, Unlisted}
+    enum VanBodyType { CombiVan, Dropside, PanelVan, Pickup, Tipper, Unlisted }
+    enum WheelBase { Short, Medium, Long, Unlisted }
     class Van : Vehicle
     {
         public WheelBase WheelBase { get; set; }
@@ -23,7 +23,7 @@ namespace CA_1
             this.WheelBase = wb;
         }
 
-        public Van(String make, String model, int Price, int year, String colour, int mileage) : base (VehicleType.Van)
+        public Van(String make, String model, int Price, int year, String colour, int mileage) : base(VehicleType.Van)
         {
             this.Make = make;
             this.Model = model;
@@ -45,22 +45,10 @@ namespace CA_1
             this.WheelBase = wb;
         }
 
-        /// <summary>
-        /// Creates line record for writing to file
-        /// </summary>
-        /// <returns></returns>
-        public override string LineDataForFile()
+        public override string ToString()
         {
-            String line = String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
-                this.Type,
-                this.Make,
-                this.Model,
-                this.Price,
-                this.Year,
-                this.Colour,
-                this.Mileage,
-                this.Description,
-                this.Image,
+            String line = String.Format("{0},{1},{2}",
+                base.ToString(),
                 this.WheelBase,
                 this.BodyType
                 );
@@ -87,6 +75,23 @@ namespace CA_1
             this.WheelBase = GetWheelBaseType(elems[9]);
             this.BodyType = GetBodyType(elems[10]);
             return this;
+        }
+
+        public override string LineDataForFile()
+        {
+            return String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10}",
+         this.Type,
+         this.Make,
+         this.Model,
+         this.Price,
+         this.Year,
+         this.Colour,
+         this.Mileage,
+         this.Description,
+         this.Image,
+         this.WheelBase,
+         this.BodyType
+         );
         }
     }
 }

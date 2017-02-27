@@ -1,4 +1,5 @@
-Car,Ford,Focus,24000,2010,#FFFFFFFF,120000,description text and some more blah blah blah more text yet more text again and so on and so on and so on,focus.png
-Car,Toyota,Corolla,22500,2016,#FFFF0000,16000,Nice car - kept clean and first to see will buy. Lady owner only,corolla.jpg
+Car,Ford,Focus,24000,2010,#FFFFFFFF,120000,description text and some more blah blah blah more text yet more text again and so on and so on and so on,focus.png,HatchBack
+Car,Toyota,Corolla,22500,2016,#FFFF0000,16000,Nice car - kept clean and first to see will buy. Lady owner only,corolla.jpg,Estate
 Motorbike,Harley Davidson,Night Rod Special,18000,2012,#FFC0C0C0,2500,Limited edition motor bike - real head turner blah blah - first to see will buy,harley.jpg
 Van,Volkswagen,Transporter,5000,2006,#FF000000,145000,LWB Transporter. Rough shape as is used as a builders van. need gone soon,transporter.jpg,Long,PanelVan
+Car,Lambourghini,Gallardo,150000,2014,#FFFFA500,36000,Fancy pants car real head turner,lambo.jpg,Coupe
