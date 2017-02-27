@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 
 namespace CA_1
 {
-    enum CarBodyType { Convertible, HatchBack, Coupe, Estate, MPV, Saloon, Unlisted}
     class Car : Vehicle
     {
         public CarBodyType CarType { get; set; }

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 namespace CA_1
 {
     public enum VehicleType { Car, Van, Motorbike }
+    enum VanBodyType { CombiVan, Dropside, PanelVan, Pickup, Tipper, Unlisted }
+    enum WheelBase { Short, Medium, Long, Unlisted }
+    enum CarBodyType { Convertible, HatchBack, Coupe, Estate, MPV, Saloon, Unlisted }
+
     abstract class Vehicle
     {
         public String Make { get; set; }

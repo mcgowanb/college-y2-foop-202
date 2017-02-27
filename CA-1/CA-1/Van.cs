@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace CA_1
 {
-    enum VanBodyType { CombiVan, Dropside, PanelVan, Pickup, Tipper, Unlisted }
-    enum WheelBase { Short, Medium, Long, Unlisted }
+ 
     class Van : Vehicle
     {
         public WheelBase WheelBase { get; set; }
