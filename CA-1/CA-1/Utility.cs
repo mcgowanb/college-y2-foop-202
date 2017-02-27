@@ -29,7 +29,7 @@ namespace CA_1
         /// <summary>
         /// Converts String to number, returns 0 if fails
         /// </summary>
-        public static int ConvertStringToNumber(String s)
+        public static int ConvertStringToInteger(String s)
         {
             try
             {
@@ -58,6 +58,17 @@ namespace CA_1
             DirectoryInfo parent = Directory.GetParent(currentDir);
             DirectoryInfo gParent = parent.Parent;
             return gParent.FullName + "\\";
+        }
+
+        /// <summary>
+        /// Converts String to Enum Type
+        /// </summary>
+        /// <returns></returns>
+        public static VehicleType GetVehicleType(String t)
+        {
+            VehicleType vType;
+            Enum.TryParse(t.ToString(), out vType);
+            return vType;
         }
     }
 }

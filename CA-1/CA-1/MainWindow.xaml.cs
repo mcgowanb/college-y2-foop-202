@@ -28,6 +28,7 @@ namespace CA_1
         private ObservableCollection<Vehicle> vehicleList;
         private ObservableCollection<Vehicle> filteredVehicles;
         private List<String> filterTypes;
+        private const String FILE_NAME = "vehicles.txt";
         public MainWindow()
         {
             InitializeComponent();
@@ -39,6 +40,7 @@ namespace CA_1
             filteredVehicles = new ObservableCollection<Vehicle>();
             filterTypes = new List<String>();
             CreateFilterList();
+            lbxVehicleList.ItemsSource = vehicleList;
             //GenerateDummyList();
         }
 
@@ -55,8 +57,8 @@ namespace CA_1
             Vehicle v2 = new Van("Toyota", "Hiace", 500, 1998, "pink", 240000, VanBodyType.CombiVan, WheelBase.Short);
             Vehicle v3 = new MotorBike("Suzuki", "AX-100", 12000, 2009, "Yellow", 34500);
             vehicleList.Add(v1);
-            //vehicleList.Add(v2);
-            //vehicleList.Add(v3);
+            vehicleList.Add(v2);
+            vehicleList.Add(v3);
 
             lbxVehicleList.ItemsSource = vehicleList;
         }
@@ -199,7 +201,7 @@ namespace CA_1
 
             try
             {
-                File.WriteAllLines(dir + "vehicles.txt", lines);
+                File.WriteAllLines(dir + FILE_NAME, lines);
                 return true;
             }
             catch (IOException e)
@@ -209,12 +211,43 @@ namespace CA_1
             }
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonWrite_Click(object sender, RoutedEventArgs e)
         {
             if (WriteDataToFile())
             {
                 MessageBox.Show("File Saved Successfully");
             }
+        }
+
+        private void ButtonLoad_Click(object sender, RoutedEventArgs e)
+        {
+            String dir = Utility.GetWorkingDirectory();
+            String[] lines = File.ReadAllLines(dir + FILE_NAME);
+
+            foreach (var line in lines)
+            {
+                Vehicle v;
+                String[] elems = line.Split(',');
+                VehicleType vt = Utility.GetVehicleType(elems[0]);
+                switch (vt)
+                {
+                    case VehicleType.Car:
+                        v = new Car().CreateFromFile(elems);
+                        break;
+                    case VehicleType.Motorbike:
+                        v = new MotorBike().CreateFromFile(elems);
+                        break;
+                    case VehicleType.Van:
+                        v = new Van().CreateFromFile(elems);
+                        break;
+                    default:
+                        v = null;
+                        break;
+                }
+                if (v != null)
+                    vehicleList.Add(v);
+            }
+
         }
     }
 }

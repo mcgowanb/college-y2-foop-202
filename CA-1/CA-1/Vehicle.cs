@@ -40,6 +40,21 @@ namespace CA_1
         }
 
         public abstract String LineDataForFile();
+
+
+        public virtual Vehicle CreateFromFile(String[] elems)
+        {
+            this.Make = elems[1];
+            this.Model = elems[2];
+            this.Price = Utility.ConvertStringToInteger(elems[3]);
+            this.Year = Utility.ConvertStringToInteger(elems[4]);
+            this.Colour = elems[5];
+            this.Mileage = Utility.ConvertStringToInteger(elems[6]);
+            this.Description = elems[7];
+            this.Image = elems[8];
+
+            return this;
+        }
     }
 
 

@@ -66,5 +66,27 @@ namespace CA_1
                 );
             return line;
         }
+
+        private WheelBase GetWheelBaseType(String t)
+        {
+            WheelBase wb;
+            Enum.TryParse(t.ToString(), out wb);
+            return wb;
+        }
+
+        public VanBodyType GetBodyType(String t)
+        {
+            VanBodyType bt;
+            Enum.TryParse(t.ToString(), out bt);
+            return bt;
+        }
+
+        public override Vehicle CreateFromFile(String[] elems)
+        {
+            base.CreateFromFile(elems);
+            this.WheelBase = GetWheelBaseType(elems[9]);
+            this.BodyType = GetBodyType(elems[10]);
+            return this;
+        }
     }
 }

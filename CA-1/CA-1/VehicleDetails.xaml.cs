@@ -151,13 +151,13 @@ namespace CA_1
         private void CreateNewObject()
         {
             Vehicle v;
-            VehicleType type = GetVehicleType(cbxType);
+            VehicleType type = Utility.GetVehicleType(cbxType.SelectedItem.ToString());
             String make = txtBxMake.Text;
             String model = txtBxModel.Text;
-            int price = Utility.ConvertStringToNumber(txtBxPrice.Text);
-            int year = Utility.ConvertStringToNumber(txtBxYear.Text);
+            int price = Utility.ConvertStringToInteger(txtBxPrice.Text);
+            int year = Utility.ConvertStringToInteger(txtBxYear.Text);
             String color = ClrPckerColour.SelectedColor.ToString();
-            int mileage = Utility.ConvertStringToNumber(txtBxMileage.Text);
+            int mileage = Utility.ConvertStringToInteger(txtBxMileage.Text);
             String desc = txtBxDescription.Text;
             String image = txtBxImage.Text;
 
@@ -227,7 +227,7 @@ namespace CA_1
         private void UpdateObjectInformation()
         {
             Van nVan;
-            v.Type = GetVehicleType(cbxType);
+            v.Type = Utility.GetVehicleType(cbxType.SelectedItem.ToString());
             v.Make = txtBxMake.Text;
             v.Model = txtBxModel.Text;
             v.Price = Convert.ToInt32(txtBxPrice.Text);
@@ -265,7 +265,7 @@ namespace CA_1
         /// </summary>
         private void SetLabelAndTypeState()
         {
-            String vehType = GetVehicleType(cbxType).ToString();
+            String vehType = Utility.GetVehicleType(cbxType.SelectedItem.ToString()).ToString();
             lblTitle.Content = String.Format("{0} {1}", action, vehType);
             cbxType.IsHitTestVisible = !isEdit;
             cbxType.Focusable = !isEdit;
@@ -278,7 +278,7 @@ namespace CA_1
         /// </summary>
         private void SetVanFieldStates()
         {
-            VehicleType t = GetVehicleType(cbxType);
+            VehicleType t = Utility.GetVehicleType(cbxType.SelectedItem.ToString());
             bool canEdit = t.Equals(VehicleType.Van);
             cbxWheelBase.IsHitTestVisible = canEdit;
             cbxWheelBase.Focusable = canEdit;
@@ -286,17 +286,7 @@ namespace CA_1
             cbxBodyTypes.Focusable = canEdit;
         }
 
-        /// <summary>
-        /// Converts String to Enum Type
-        /// </summary>
-        /// <param name="cBox"></param>
-        /// <returns></returns>
-        private VehicleType GetVehicleType(ComboBox cBox)
-        {
-            VehicleType vType;
-            Enum.TryParse(cBox.SelectedItem.ToString(), out vType);
-            return vType;
-        }
+       
 
         /// <summary>
         /// Converts String to Enum Type. Returns unlsited on unset values

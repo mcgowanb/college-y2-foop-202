@@ -175,8 +175,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Style="{StaticResource bottomButtonBar}" Grid.Column="1" Content="Load" />
-            <Button Style="{StaticResource bottomButtonBar}" Grid.Column="2" Content="Save" Click="Button_Click" />
+            <Button Style="{StaticResource bottomButtonBar}" Grid.Column="1" Content="Load" Click="ButtonLoad_Click" />
+            <Button Style="{StaticResource bottomButtonBar}" Grid.Column="2" Content="Save" Click="ButtonWrite_Click" />
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="3" Content="Add" Click="Button_Edit"/>
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="4" Content="Edit" Click="Button_Edit" />
             <Button Style="{StaticResource bottomButtonBar}" Grid.Column="5" Content="Delete" />
