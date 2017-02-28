@@ -43,6 +43,8 @@ namespace CA_1
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             VehicleType vt;
+            SetListValues();
+
             if (Application.Current.Properties["vehicle"] != null)
             {
                 //we are editing an object, so set the data fields accordingly
@@ -63,7 +65,6 @@ namespace CA_1
                 vt = VehicleType.Car;
             }
             //set vehicle type and wheelbase lists
-            SetListValues();
             //contextually set the body types depending on car or van
             SetBodyTypeLists(vt);
             //if it add, set the label to add {VehicleType} or else Edit {Vehicle Type}
@@ -325,8 +326,8 @@ namespace CA_1
         {
             String vehType = Utility.GetVehicleType(cbxType.SelectedItem.ToString()).ToString();
             lblTitle.Content = String.Format("{0} {1}", action, vehType);
-            cbxType.IsHitTestVisible = !isEdit;
-            cbxType.Focusable = !isEdit;
+            //cbxType.IsHitTestVisible = !isEdit;
+            //cbxType.Focusable = !isEdit;
 
         }
 

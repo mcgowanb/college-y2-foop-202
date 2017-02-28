@@ -133,7 +133,13 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="3*"/>
             </Grid.RowDefinitions>
-            <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Vehicle Details" Style="{StaticResource detailLabel}"/>
+            <DockPanel Grid.Row="0" Grid.ColumnSpan="2">
+                <Label Content="Vehicle Details" Style="{StaticResource detailLabel}" Margin="170,0,0,0"/>
+                <Button Name="btnTweet" Background="#FF52ABEC" Margin="10" ToolTip="Publish to Twitter"
+                        HorizontalAlignment="Right" Click="btnTweet_Click">
+                    <Image Source="/images/twitter-inverse.png" Margin="5" />
+                </Button>
+            </DockPanel>
             <Image Grid.Row="1" Grid.ColumnSpan="2" Name="imgVehicle" Margin="5"/>
 
             <Label Grid.Row="2" Grid.Column="0" Content="Make:" Style="{StaticResource lblDetails}"/>

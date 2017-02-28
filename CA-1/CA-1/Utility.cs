@@ -84,5 +84,17 @@ namespace CA_1
             }
             return vt;
         }
+
+
+        public static String TrimTweetForDevelopment(String s)
+        {
+            String msg = String.Format("TESTING - IGNORE THIS: {0}", s);
+            if (msg.Length >= 140)
+            {
+                return msg.Substring(0, 140);
+
+            }
+            else return msg;
+        }
     }
 }

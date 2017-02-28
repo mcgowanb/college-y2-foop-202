@@ -262,7 +262,6 @@ namespace CA_1
             {
                 FileHandler fh = new FileHandler();
                 String[] lines = fh.ReadLinesFromFile(FILE_NAME, Utility.GetWorkingDirectory());
-                vehicleList.Clear();
                 CreateListFromFile(lines);
             }
             catch (FileNotFoundException ex)
@@ -299,6 +298,21 @@ namespace CA_1
                 }
                 if (v != null)
                     vehicleList.Add(v);
+            }
+        }
+
+        private void btnTweet_Click(object sender, RoutedEventArgs e)
+        {
+            Vehicle v = lbxVehicleList.SelectedItem as Vehicle;
+            if (v != null)
+            {
+                String s = v.ToString();
+                String status = new Twitter().Tweet(s);
+                MessageBox.Show(status);
+            }
+            else
+            {
+                MessageBox.Show("No item selected, try again");
             }
         }
     }

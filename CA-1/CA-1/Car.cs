@@ -74,6 +74,19 @@ namespace CA_1
             Enum.TryParse(t.ToString(), out ct);
             return ct;
         }
+
+        public override string ToString()
+        {
+            return String.Format("{0} for sale, Make: {1} Model: {2} Price: {3} Year: {4} Colour: {5} Description: {6}",
+            this.CarType,
+            this.Make,
+            this.Model,
+            this.Price,
+            this.Year,
+            this.Colour,
+            this.Description
+            );
+        }
     }
 
 }

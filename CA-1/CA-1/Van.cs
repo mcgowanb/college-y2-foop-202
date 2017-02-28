@@ -46,12 +46,16 @@ namespace CA_1
 
         public override string ToString()
         {
-            String line = String.Format("{0},{1},{2}",
-                base.ToString(),
-                this.WheelBase,
-                this.BodyType
-                );
-            return line;
+            return String.Format("{0} for sale, Make: {1} Model: {2} Price: {3} Year: {4} Colour: {5} Wheelbase: {7} Description: {6}",
+            this.BodyType,
+            this.Make,
+            this.Model,
+            this.Price,
+            this.Year,
+            this.Colour,
+            this.Description,
+            this.BodyType
+            );
         }
 
         private WheelBase GetWheelBaseType(String t)

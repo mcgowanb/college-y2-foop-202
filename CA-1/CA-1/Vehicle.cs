@@ -40,17 +40,14 @@ namespace CA_1
 
         public override string ToString()
         {
-
-           return String.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8}",
+           return String.Format("{0} for sale, Make: {1} Model: {2} Price: {3} Year: {4} Colour: {5} Description: {6}",
            this.Type,
            this.Make,
            this.Model,
            this.Price,
            this.Year,
            this.Colour,
-           this.Mileage,
-           this.Description,
-           this.Image
+           this.Description
            );
         }
 
