@@ -14,6 +14,10 @@ namespace CA_1
         private String accessToken = "4222277297-W7AxgyKv6jnGizv2y8mpCv8MpRpbqQLzaw2fOeJ";
         private String accessTokenSecret = "fHrQ4JKWhskLKfwJFl5ow7FGqD1BXRW9KrlmqXgcUxaSS";
 
+        /// <summary>
+        /// If you want to see the tweet after its sent, you can view it at
+        /// https://twitter.com/ROINewsNow
+        /// </summary>
         public String Tweet(String s)
         {
             s = Utility.TrimTweetForDevelopment(s);

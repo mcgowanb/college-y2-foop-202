@@ -326,8 +326,8 @@ namespace CA_1
         {
             String vehType = Utility.GetVehicleType(cbxType.SelectedItem.ToString()).ToString();
             lblTitle.Content = String.Format("{0} {1}", action, vehType);
-            //cbxType.IsHitTestVisible = !isEdit;
-            //cbxType.Focusable = !isEdit;
+            cbxType.IsHitTestVisible = !isEdit;
+            cbxType.Focusable = !isEdit;
 
         }
 

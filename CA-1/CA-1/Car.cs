@@ -68,7 +68,7 @@ namespace CA_1
             return this;
         }
 
-        public CarBodyType GetCarTypeType(String t)
+        private CarBodyType GetCarTypeType(String t)
         {
             CarBodyType ct;
             Enum.TryParse(t.ToString(), out ct);

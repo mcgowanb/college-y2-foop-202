@@ -65,7 +65,7 @@ namespace CA_1
             return wb;
         }
 
-        public VanBodyType GetBodyType(String t)
+        private VanBodyType GetBodyType(String t)
         {
             VanBodyType bt;
             Enum.TryParse(t.ToString(), out bt);
