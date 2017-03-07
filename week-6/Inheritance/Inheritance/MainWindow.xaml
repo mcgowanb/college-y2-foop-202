@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Inheritance"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="487" Width="909" Loaded="Window_Loaded">
     <Grid>
-        
+        <ListBox x:Name="lbxStaff" HorizontalAlignment="Left" Height="436" Margin="10,10,0,0" VerticalAlignment="Top" Width="881"/>
+
     </Grid>
 </Window>
