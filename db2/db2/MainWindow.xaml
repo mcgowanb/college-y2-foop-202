@@ -1,0 +1,34 @@
+﻿<Window x:Class="db2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:db2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="487" Width="654" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="2*" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Style="{StaticResource label}" Content="Stock Level" Grid.Row="0" Grid.Column="0"/>
+        <ListBox Style="{StaticResource Box}"  Name="lbxStockLevel" Grid.Row="1" Grid.Column="0" SelectionChanged="lbxStockLevel_SelectionChanged" />
+
+        <Label Style="{StaticResource label}" Content="Suppliers" Grid.Row="0" Grid.Column="1"/>
+        <ListBox Style="{StaticResource Box}" Name="lbxSuppliers" Grid.Row="1" Grid.Column="1" DisplayMemberPath="CompanyName" SelectedValuePath="SupplierID" SelectionChanged="lbxSuppliers_SelectionChanged" />
+
+        <Label Style="{StaticResource label}" Content="Country" Grid.Row="0" Grid.Column="2"/>
+        <ListBox Style="{StaticResource Box}" Name="lbxCountries" Grid.Row="1" Grid.Column="2" DisplayMemberPath="Country" SelectedValuePath="Country" SelectionChanged="lbxCountries_SelectionChanged" />
+
+        <Label Style="{StaticResource label}" Content="Products" Grid.Row="2" Grid.ColumnSpan="3" />
+        <ListBox Style="{StaticResource Box}" Name="lbxProducts" Grid.Row="3" Grid.ColumnSpan="3" />
+    </Grid>
+</Window>
