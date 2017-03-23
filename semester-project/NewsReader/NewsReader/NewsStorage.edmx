@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="NewsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Articles">
           <Key>
             <PropertyRef Name="ID" />
@@ -41,35 +41,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Websites_Websites">
-          <End Role="Websites" Type="Self.Websites" Multiplicity="1" />
-          <End Role="Websites1" Type="Self.Websites" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Websites">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Websites1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityContainer Name="NewsModelStoreContainer">
+        <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="Articles" EntityType="Self.Articles" Schema="news" store:Type="Tables" />
           <EntitySet Name="Websites" EntityType="Self.Websites" Schema="news" store:Type="Tables" />
           <AssociationSet Name="FK_Articles_Websites" Association="Self.FK_Articles_Websites">
             <End Role="Websites" EntitySet="Websites" />
             <End Role="Articles" EntitySet="Articles" />
           </AssociationSet>
-          <AssociationSet Name="FK_Websites_Websites" Association="Self.FK_Websites_Websites">
-            <End Role="Websites" EntitySet="Websites" />
-            <End Role="Websites1" EntitySet="Websites" />
-          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="NewsModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Article">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,7 +79,7 @@
           <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IconPath" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Articles" Relationship="Self.FK_Articles_Websites" FromRole="Websites" ToRole="Articles" />
-          </EntityType>
+        </EntityType>
         <Association Name="FK_Articles_Websites">
           <End Role="Websites" Type="Self.Website" Multiplicity="0..1" />
           <End Role="Articles" Type="Self.Article" Multiplicity="*" />
@@ -108,7 +92,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="s00165159Entities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="NewsEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Articles" EntityType="Self.Article" />
           <EntitySet Name="Websites" EntityType="Self.Website" />
           <AssociationSet Name="FK_Articles_Websites" Association="Self.FK_Articles_Websites">
@@ -121,9 +105,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="NewsModelStoreContainer" CdmEntityContainer="s00165159Entities">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="NewsEntities">
           <EntitySetMapping Name="Articles">
-            <EntityTypeMapping TypeName="NewsModel.Article">
+            <EntityTypeMapping TypeName="Model.Article">
               <MappingFragment StoreEntitySet="Articles">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="WebsiteID" ColumnName="WebsiteID" />
@@ -139,7 +123,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Websites">
-            <EntityTypeMapping TypeName="NewsModel.Website">
+            <EntityTypeMapping TypeName="Model.Website">
               <MappingFragment StoreEntitySet="Websites">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />

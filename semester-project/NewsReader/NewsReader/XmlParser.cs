@@ -11,12 +11,14 @@ namespace NewsReader
         private string url;
         private XmlDocument doc;
         private List<Article> list;
+        private int WebsiteID;
 
         public XmlParser(string url)
         {
             this.url = url;
             this.doc = new XmlDocument();
             this.list = new List<Article>();
+            this.WebsiteID = GenerateWebsiteID();
         }
 
         public List<Article> FetchArticles()
@@ -51,10 +53,31 @@ namespace NewsReader
                 {
                     hashTag = "#null";
                 }
-                Article article = new NewsArticle(GUID, title, date, description, category, hashTag);
+                Article article = new NewsArticle(GUID, title, date, description, category, hashTag, WebsiteID);
                 list.Add(article);
             }
             return list;
+        }
+
+        public int GenerateWebsiteID()
+        {
+            int id = 0;
+            switch (url)
+            {
+                case "http://www.thejournal.ie/feed/":
+                    id = 1;
+                    break;
+                case "http://www.the42.ie/feed/":
+                    id = 2;
+                    break;
+                case "http://www.dailyedge.ie/feed/":
+                    id = 3;
+                    break;
+                default:
+                    id = 0;
+                    break;
+            }
+            return id;
         }
     }
 }

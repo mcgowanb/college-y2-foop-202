@@ -67,21 +67,31 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Article.cs">
-      <DependentUpon>NewsModel.tt</DependentUpon>
+      <DependentUpon>NewsStorage.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs" />
     <Compile Include="NewsArticle.cs" />
-    <Compile Include="NewsModel.cs">
+    <Compile Include="NewsStorage.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>NewsModel.tt</DependentUpon>
+      <DependentUpon>NewsStorage.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewsStorage.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsStorage.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NewsStorage.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NewsStorage.edmx</DependentUpon>
     </Compile>
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utility.cs" />
     <Compile Include="Website.cs">
-      <DependentUpon>NewsModel.tt</DependentUpon>
+      <DependentUpon>NewsStorage.tt</DependentUpon>
     </Compile>
     <Compile Include="XmlParser.cs" />
     <Page Include="MainWindow.xaml">
@@ -102,16 +112,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NewsModel.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NewsModel.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="NewsModel.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>NewsModel.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -129,12 +129,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="NewsModel.edmx">
+    <EntityDeploy Include="NewsStorage.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>NewsModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>NewsStorage.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="NewsModel.edmx.diagram">
-      <DependentUpon>NewsModel.edmx</DependentUpon>
+    <None Include="NewsStorage.edmx.diagram">
+      <DependentUpon>NewsStorage.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -152,21 +152,22 @@
     <Resource Include="images\journal.ico" />
     <Resource Include="images\the42.png" />
     <Resource Include="images\twitter-inverse.png" />
-    <Content Include="NewsModel.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewsModel.edmx</DependentUpon>
-      <LastGenOutput>NewsModel.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="NewsModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>NewsModel.edmx</DependentUpon>
-      <LastGenOutput>NewsModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Content Include="NewsStorage.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsStorage.edmx</DependentUpon>
+      <LastGenOutput>NewsStorage.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="NewsStorage.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NewsStorage.edmx</DependentUpon>
+      <LastGenOutput>NewsStorage.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

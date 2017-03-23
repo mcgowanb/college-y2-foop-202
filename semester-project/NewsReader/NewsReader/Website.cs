@@ -7,22 +7,25 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System;
-using System.Collections.Generic;
-
-public partial class Website
+namespace NewsReader
 {
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-    public Website()
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Website
     {
-        this.Articles = new HashSet<Article>();
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Website()
+        {
+            this.Articles = new HashSet<Article>();
+        }
+    
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string URL { get; set; }
+        public string IconPath { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Article> Articles { get; set; }
     }
-
-    public int ID { get; set; }
-    public string Name { get; set; }
-    public string URL { get; set; }
-    public string IconPath { get; set; }
-
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-    public virtual ICollection<Article> Articles { get; set; }
 }
