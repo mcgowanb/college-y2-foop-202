@@ -74,6 +74,11 @@ namespace NewsReader
         {
 
         }
-       
+
+        private void RefreshArticles_Click(object sender, RoutedEventArgs e)
+        {
+            news.RefreshArticles();
+            lbxArticles.Items.Refresh();
+        }
     }
 }

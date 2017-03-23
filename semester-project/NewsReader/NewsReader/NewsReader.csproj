@@ -70,6 +70,7 @@
       <DependentUpon>NewsModel.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs" />
+    <Compile Include="NewsArticle.cs" />
     <Compile Include="NewsModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -78,9 +79,11 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utility.cs" />
     <Compile Include="Website.cs">
       <DependentUpon>NewsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="XmlParser.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

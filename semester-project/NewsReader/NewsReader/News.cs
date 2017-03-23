@@ -10,6 +10,7 @@ namespace NewsReader
     {
         public List<Website> Websites { get; private set; }
         public List<Article> CurrentNewsArticles { get; private set; }
+        public List<Article> NewArticles { get; private set; }
         s00165159Entities db;
         public News()
         {
@@ -31,6 +32,17 @@ namespace NewsReader
             var query = from a in db.Articles
                         select a;
             CurrentNewsArticles = query.ToList();
+        }
+
+
+        public void RefreshArticles()
+        {
+            foreach (var item in Websites)
+            {
+                String url = item.URL;
+                XmlParser p = new XmlParser(url);
+                CurrentNewsArticles = p.FetchArticles();
+            }
         }
     }
 }
