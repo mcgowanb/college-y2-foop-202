@@ -7,24 +7,26 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewsReader
+namespace dbconnect
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Website
+    public partial class ProductTBL
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Website()
+        public ProductTBL()
         {
-            this.Articles = new HashSet<Article>();
+            this.OrderDetailTBL = new HashSet<OrderDetailTBL>();
         }
     
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string URL { get; set; }
+        public int ProductID { get; set; }
+        public string ProductDesc { get; set; }
+        public Nullable<decimal> ProductPrice { get; set; }
+        public Nullable<int> QuantityInStock { get; set; }
+        public Nullable<int> bin { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Article> Articles { get; set; }
+        public virtual ICollection<OrderDetailTBL> OrderDetailTBL { get; set; }
     }
 }

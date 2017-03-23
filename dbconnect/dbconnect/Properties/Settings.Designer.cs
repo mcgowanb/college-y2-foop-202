@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace NewsReader.Properties
+namespace dbconnect.Properties
 {
 
 

@@ -13,10 +13,10 @@ namespace NewsReader
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class Entities1 : DbContext
+    public partial class s00165159Entities : DbContext
     {
-        public Entities1()
-            : base("name=Entities1")
+        public s00165159Entities()
+            : base("name=s00165159Entities")
         {
         }
     

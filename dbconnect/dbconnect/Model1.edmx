@@ -1,0 +1,608 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="s00165159Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="BonusTBL">
+          <Key>
+            <PropertyRef Name="BonusID" />
+          </Key>
+          <Property Name="BonusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" />
+          <Property Name="BonusAmount" Type="smallmoney" />
+        </EntityType>
+        <EntityType Name="CustomerTBL">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAddress1" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAddress2" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerAddress3" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerEmailAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="CustomerCreditLimit" Type="money" />
+        </EntityType>
+        <EntityType Name="LoyaltyCardTBL">
+          <Key>
+            <PropertyRef Name="LoyaltyCardID" />
+          </Key>
+          <Property Name="LoyaltyCardID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="Points" Type="smallint" />
+        </EntityType>
+        <EntityType Name="OrderDetailTBL">
+          <Key>
+            <PropertyRef Name="OrderDetailID" />
+          </Key>
+          <Property Name="OrderDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesOrderID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" />
+          <Property Name="OrderQuantity" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="OrderTBL">
+          <Key>
+            <PropertyRef Name="SalesOrderID" />
+          </Key>
+          <Property Name="SalesOrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SalesOrderDate" Type="date" />
+          <Property Name="CustomerID" Type="int" />
+          <Property Name="PurchaseOrderID" Type="int" />
+          <Property Name="TotalDue" Type="money" />
+        </EntityType>
+        <EntityType Name="ProductTBL">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductDesc" Type="varchar" MaxLength="50" />
+          <Property Name="ProductPrice" Type="money" />
+          <Property Name="QuantityInStock" Type="int" />
+          <Property Name="bin" Type="int" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <Association Name="FK_LoyaltyCardTBL_CustomerTBL">
+          <End Role="CustomerTBL" Type="Self.CustomerTBL" Multiplicity="0..1" />
+          <End Role="LoyaltyCardTBL" Type="Self.LoyaltyCardTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTBL">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="LoyaltyCardTBL">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetailTBL_ProductTBL">
+          <End Role="OrderTBL" Type="Self.OrderTBL" Multiplicity="1" />
+          <End Role="OrderDetailTBL" Type="Self.OrderDetailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTBL">
+              <PropertyRef Name="SalesOrderID" />
+            </Principal>
+            <Dependent Role="OrderDetailTBL">
+              <PropertyRef Name="SalesOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetailTBL_ProductTBL1">
+          <End Role="ProductTBL" Type="Self.ProductTBL" Multiplicity="0..1" />
+          <End Role="OrderDetailTBL" Type="Self.OrderDetailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTBL">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetailTBL">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTBL_CustomerTBL">
+          <End Role="CustomerTBL" Type="Self.CustomerTBL" Multiplicity="0..1" />
+          <End Role="OrderTBL" Type="Self.OrderTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTBL">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="OrderTBL">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="MyFirstSproc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CreditLimit" Type="money" Mode="In" />
+        </Function>
+        <Function Name="MyIDXScript15" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="myIndex1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="rebuild_index" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sample41" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sample41a" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sample42" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sample42a" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SampleIdxProc" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="version" Type="int" Mode="In" />
+          <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+        </Function>
+        <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+          <Parameter Name="owner_id" Type="int" Mode="In" />
+          <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="stats1" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="updateProduct" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="price" Type="money" Mode="In" />
+        </Function>
+        <EntityContainer Name="s00165159ModelStoreContainer">
+          <EntitySet Name="BonusTBL" EntityType="Self.BonusTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CustomerTBL" EntityType="Self.CustomerTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LoyaltyCardTBL" EntityType="Self.LoyaltyCardTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderDetailTBL" EntityType="Self.OrderDetailTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderTBL" EntityType="Self.OrderTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductTBL" EntityType="Self.ProductTBL" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LoyaltyCardTBL_CustomerTBL" Association="Self.FK_LoyaltyCardTBL_CustomerTBL">
+            <End Role="CustomerTBL" EntitySet="CustomerTBL" />
+            <End Role="LoyaltyCardTBL" EntitySet="LoyaltyCardTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetailTBL_ProductTBL" Association="Self.FK_OrderDetailTBL_ProductTBL">
+            <End Role="OrderTBL" EntitySet="OrderTBL" />
+            <End Role="OrderDetailTBL" EntitySet="OrderDetailTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetailTBL_ProductTBL1" Association="Self.FK_OrderDetailTBL_ProductTBL1">
+            <End Role="ProductTBL" EntitySet="ProductTBL" />
+            <End Role="OrderDetailTBL" EntitySet="OrderDetailTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTBL_CustomerTBL" Association="Self.FK_OrderTBL_CustomerTBL">
+            <End Role="CustomerTBL" EntitySet="CustomerTBL" />
+            <End Role="OrderTBL" EntitySet="OrderTBL" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="s00165159Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="BonusTBL">
+          <Key>
+            <PropertyRef Name="BonusID" />
+          </Key>
+          <Property Name="BonusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeID" Type="Int32" />
+          <Property Name="BonusAmount" Type="Decimal" Precision="10" Scale="4" />
+        </EntityType>
+        <EntityType Name="CustomerTBL">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress2" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerAddress3" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerEmailAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerCreditLimit" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="LoyaltyCardTBL" Relationship="Self.FK_LoyaltyCardTBL_CustomerTBL" FromRole="CustomerTBL" ToRole="LoyaltyCardTBL" />
+          <NavigationProperty Name="OrderTBL" Relationship="Self.FK_OrderTBL_CustomerTBL" FromRole="CustomerTBL" ToRole="OrderTBL" />
+        </EntityType>
+        <EntityType Name="LoyaltyCardTBL">
+          <Key>
+            <PropertyRef Name="LoyaltyCardID" />
+          </Key>
+          <Property Name="LoyaltyCardID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="Points" Type="Int16" />
+          <NavigationProperty Name="CustomerTBL" Relationship="Self.FK_LoyaltyCardTBL_CustomerTBL" FromRole="LoyaltyCardTBL" ToRole="CustomerTBL" />
+        </EntityType>
+        <EntityType Name="OrderDetailTBL">
+          <Key>
+            <PropertyRef Name="OrderDetailID" />
+          </Key>
+          <Property Name="OrderDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesOrderID" Type="Int32" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" />
+          <Property Name="OrderQuantity" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="OrderTBL" Relationship="Self.FK_OrderDetailTBL_ProductTBL" FromRole="OrderDetailTBL" ToRole="OrderTBL" />
+          <NavigationProperty Name="ProductTBL" Relationship="Self.FK_OrderDetailTBL_ProductTBL1" FromRole="OrderDetailTBL" ToRole="ProductTBL" />
+        </EntityType>
+        <EntityType Name="OrderTBL">
+          <Key>
+            <PropertyRef Name="SalesOrderID" />
+          </Key>
+          <Property Name="SalesOrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SalesOrderDate" Type="DateTime" Precision="0" />
+          <Property Name="CustomerID" Type="Int32" />
+          <Property Name="PurchaseOrderID" Type="Int32" />
+          <Property Name="TotalDue" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="CustomerTBL" Relationship="Self.FK_OrderTBL_CustomerTBL" FromRole="OrderTBL" ToRole="CustomerTBL" />
+          <NavigationProperty Name="OrderDetailTBL" Relationship="Self.FK_OrderDetailTBL_ProductTBL" FromRole="OrderTBL" ToRole="OrderDetailTBL" />
+        </EntityType>
+        <EntityType Name="ProductTBL">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductDesc" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ProductPrice" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="QuantityInStock" Type="Int32" />
+          <Property Name="bin" Type="Int32" />
+          <NavigationProperty Name="OrderDetailTBL" Relationship="Self.FK_OrderDetailTBL_ProductTBL1" FromRole="ProductTBL" ToRole="OrderDetailTBL" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_LoyaltyCardTBL_CustomerTBL">
+          <End Role="CustomerTBL" Type="Self.CustomerTBL" Multiplicity="0..1" />
+          <End Role="LoyaltyCardTBL" Type="Self.LoyaltyCardTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTBL">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="LoyaltyCardTBL">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderTBL_CustomerTBL">
+          <End Role="CustomerTBL" Type="Self.CustomerTBL" Multiplicity="0..1" />
+          <End Role="OrderTBL" Type="Self.OrderTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CustomerTBL">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="OrderTBL">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetailTBL_ProductTBL">
+          <End Role="OrderTBL" Type="Self.OrderTBL" Multiplicity="1" />
+          <End Role="OrderDetailTBL" Type="Self.OrderDetailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrderTBL">
+              <PropertyRef Name="SalesOrderID" />
+            </Principal>
+            <Dependent Role="OrderDetailTBL">
+              <PropertyRef Name="SalesOrderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderDetailTBL_ProductTBL1">
+          <End Role="ProductTBL" Type="Self.ProductTBL" Multiplicity="0..1" />
+          <End Role="OrderDetailTBL" Type="Self.OrderDetailTBL" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductTBL">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OrderDetailTBL">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="s00165159Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="BonusTBL" EntityType="Self.BonusTBL" />
+          <EntitySet Name="CustomerTBL" EntityType="Self.CustomerTBL" />
+          <EntitySet Name="LoyaltyCardTBL" EntityType="Self.LoyaltyCardTBL" />
+          <EntitySet Name="OrderDetailTBL" EntityType="Self.OrderDetailTBL" />
+          <EntitySet Name="OrderTBL" EntityType="Self.OrderTBL" />
+          <EntitySet Name="ProductTBL" EntityType="Self.ProductTBL" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <AssociationSet Name="FK_LoyaltyCardTBL_CustomerTBL" Association="Self.FK_LoyaltyCardTBL_CustomerTBL">
+            <End Role="CustomerTBL" EntitySet="CustomerTBL" />
+            <End Role="LoyaltyCardTBL" EntitySet="LoyaltyCardTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderTBL_CustomerTBL" Association="Self.FK_OrderTBL_CustomerTBL">
+            <End Role="CustomerTBL" EntitySet="CustomerTBL" />
+            <End Role="OrderTBL" EntitySet="OrderTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetailTBL_ProductTBL" Association="Self.FK_OrderDetailTBL_ProductTBL">
+            <End Role="OrderTBL" EntitySet="OrderTBL" />
+            <End Role="OrderDetailTBL" EntitySet="OrderDetailTBL" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderDetailTBL_ProductTBL1" Association="Self.FK_OrderDetailTBL_ProductTBL1">
+            <End Role="ProductTBL" EntitySet="ProductTBL" />
+            <End Role="OrderDetailTBL" EntitySet="OrderDetailTBL" />
+          </AssociationSet>
+          <FunctionImport Name="MyFirstSproc" ReturnType="Collection(s00165159Model.MyFirstSproc_Result)">
+            <Parameter Name="CreditLimit" Mode="In" Type="Decimal" />
+          </FunctionImport>
+          <FunctionImport Name="MyIDXScript15" />
+          <FunctionImport Name="myIndex1" />
+          <FunctionImport Name="rebuild_index" />
+          <FunctionImport Name="sample41" ReturnType="Collection(s00165159Model.sample41_Result)" />
+          <FunctionImport Name="sample41a" ReturnType="Collection(s00165159Model.sample41a_Result)" />
+          <FunctionImport Name="sample42" ReturnType="Collection(s00165159Model.sample42_Result)" />
+          <FunctionImport Name="sample42a" ReturnType="Collection(s00165159Model.sample42a_Result)" />
+          <FunctionImport Name="SampleIdxProc" />
+          <FunctionImport Name="sp_alterdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_creatediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="version" Mode="In" Type="Int32" />
+            <Parameter Name="definition" Mode="In" Type="Binary" />
+          </FunctionImport>
+          <FunctionImport Name="sp_dropdiagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(s00165159Model.sp_helpdiagramdefinition_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(s00165159Model.sp_helpdiagrams_Result)">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_renamediagram">
+            <Parameter Name="diagramname" Mode="In" Type="String" />
+            <Parameter Name="owner_id" Mode="In" Type="Int32" />
+            <Parameter Name="new_diagramname" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_upgraddiagrams" />
+          <FunctionImport Name="stats1" />
+          <FunctionImport Name="updateProduct">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="MyFirstSproc_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerAddress1" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sample41_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="SalesOrderDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sample41a_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="SalesOrderDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sample42_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="SalesOrderDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sample42a_Result">
+          <Property Type="Int32" Name="CustomerID" Nullable="false" />
+          <Property Type="String" Name="CustomerName" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="SalesOrderDate" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagramdefinition_Result">
+          <Property Type="Int32" Name="version" Nullable="true" />
+          <Property Type="Binary" Name="definition" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_helpdiagrams_Result">
+          <Property Type="String" Name="Database" Nullable="true" MaxLength="128" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="128" />
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
+          <Property Type="Int32" Name="OwnerID" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="s00165159ModelStoreContainer" CdmEntityContainer="s00165159Entities">
+          <EntitySetMapping Name="BonusTBL">
+            <EntityTypeMapping TypeName="s00165159Model.BonusTBL">
+              <MappingFragment StoreEntitySet="BonusTBL">
+                <ScalarProperty Name="BonusID" ColumnName="BonusID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="BonusAmount" ColumnName="BonusAmount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CustomerTBL">
+            <EntityTypeMapping TypeName="s00165159Model.CustomerTBL">
+              <MappingFragment StoreEntitySet="CustomerTBL">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddress1" ColumnName="CustomerAddress1" />
+                <ScalarProperty Name="CustomerAddress2" ColumnName="CustomerAddress2" />
+                <ScalarProperty Name="CustomerAddress3" ColumnName="CustomerAddress3" />
+                <ScalarProperty Name="CustomerEmailAddress" ColumnName="CustomerEmailAddress" />
+                <ScalarProperty Name="CustomerCreditLimit" ColumnName="CustomerCreditLimit" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LoyaltyCardTBL">
+            <EntityTypeMapping TypeName="s00165159Model.LoyaltyCardTBL">
+              <MappingFragment StoreEntitySet="LoyaltyCardTBL">
+                <ScalarProperty Name="LoyaltyCardID" ColumnName="LoyaltyCardID" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Points" ColumnName="Points" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderDetailTBL">
+            <EntityTypeMapping TypeName="s00165159Model.OrderDetailTBL">
+              <MappingFragment StoreEntitySet="OrderDetailTBL">
+                <ScalarProperty Name="OrderDetailID" ColumnName="OrderDetailID" />
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="OrderQuantity" ColumnName="OrderQuantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderTBL">
+            <EntityTypeMapping TypeName="s00165159Model.OrderTBL">
+              <MappingFragment StoreEntitySet="OrderTBL">
+                <ScalarProperty Name="SalesOrderID" ColumnName="SalesOrderID" />
+                <ScalarProperty Name="SalesOrderDate" ColumnName="SalesOrderDate" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="PurchaseOrderID" ColumnName="PurchaseOrderID" />
+                <ScalarProperty Name="TotalDue" ColumnName="TotalDue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductTBL">
+            <EntityTypeMapping TypeName="s00165159Model.ProductTBL">
+              <MappingFragment StoreEntitySet="ProductTBL">
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ProductDesc" ColumnName="ProductDesc" />
+                <ScalarProperty Name="ProductPrice" ColumnName="ProductPrice" />
+                <ScalarProperty Name="QuantityInStock" ColumnName="QuantityInStock" />
+                <ScalarProperty Name="bin" ColumnName="bin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="s00165159Model.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="MyFirstSproc" FunctionName="s00165159Model.Store.MyFirstSproc">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.MyFirstSproc_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="CustomerAddress1" ColumnName="CustomerAddress1" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="MyIDXScript15" FunctionName="s00165159Model.Store.MyIDXScript15" />
+          <FunctionImportMapping FunctionImportName="myIndex1" FunctionName="s00165159Model.Store.myIndex1" />
+          <FunctionImportMapping FunctionImportName="rebuild_index" FunctionName="s00165159Model.Store.rebuild_index" />
+          <FunctionImportMapping FunctionImportName="sample41" FunctionName="s00165159Model.Store.sample41">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sample41_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="SalesOrderDate" ColumnName="SalesOrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sample41a" FunctionName="s00165159Model.Store.sample41a">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sample41a_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="SalesOrderDate" ColumnName="SalesOrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sample42" FunctionName="s00165159Model.Store.sample42">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sample42_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="SalesOrderDate" ColumnName="SalesOrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sample42a" FunctionName="s00165159Model.Store.sample42a">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sample42a_Result">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="CustomerName" ColumnName="CustomerName" />
+                <ScalarProperty Name="SalesOrderDate" ColumnName="SalesOrderDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SampleIdxProc" FunctionName="s00165159Model.Store.SampleIdxProc" />
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="s00165159Model.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="s00165159Model.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="s00165159Model.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="s00165159Model.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sp_helpdiagramdefinition_Result">
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="s00165159Model.Store.sp_helpdiagrams">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="s00165159Model.sp_helpdiagrams_Result">
+                <ScalarProperty Name="Database" ColumnName="Database" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Owner" ColumnName="Owner" />
+                <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="s00165159Model.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="s00165159Model.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="stats1" FunctionName="s00165159Model.Store.stats1" />
+          <FunctionImportMapping FunctionImportName="updateProduct" FunctionName="s00165159Model.Store.updateProduct" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

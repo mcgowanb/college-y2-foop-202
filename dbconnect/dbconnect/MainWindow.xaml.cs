@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace NewsReader
+namespace dbconnect
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -24,5 +24,7 @@ namespace NewsReader
         {
             InitializeComponent();
         }
+
+        s00165159Entities db = new s00165159Entities();
     }
 }
