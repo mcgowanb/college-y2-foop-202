@@ -24,15 +24,22 @@ namespace NewsReader
         {
             var query = from wb in db.Websites
                         select wb;
-            Websites =  query.ToList();
+            Websites = query.ToList();
 
         }
 
         private void LoadCurrentNewsArticles()
         {
-            var query = from a in db.Articles
-                        select a;
-            CurrentNewsArticles = query.ToList();
+            try
+            {
+                var query = from a in db.Articles
+                            select a;
+                CurrentNewsArticles = query.ToList();
+            }
+            catch (System.Reflection.TargetInvocationException e)
+            {
+                CurrentNewsArticles = new List<Article>();
+            }
         }
 
 
@@ -54,19 +61,7 @@ namespace NewsReader
         {
             foreach (var item in CurrentNewsArticles)
             {
-                Article a = new Article()
-                {
-                    Category = item.Category,
-                    Date = item.Date,
-                    Description = item.Description,
-                    GUID = item.GUID,
-                    HashTag = item.HashTag,
-                    Link = item.Link,
-                    ThumbLink = item.ThumbLink,
-                    Title = item.Title,
-                    WebsiteID = item.WebsiteID
-                };
-                db.Articles.Add(a);
+                db.Articles.Add(item);
             }
             db.SaveChanges();
         }
@@ -76,12 +71,15 @@ namespace NewsReader
             var deleteRecords = from n in db.Articles
                                 select n;
 
-            foreach (var item in deleteRecords)
+            if (deleteRecords.Any())
             {
-                db.Articles.Remove(item);
-            }
+                foreach (var item in deleteRecords)
+                {
+                    db.Articles.Remove(item);
+                }
 
-            db.SaveChanges();
+                db.SaveChanges();
+            }
         }
     }
 }

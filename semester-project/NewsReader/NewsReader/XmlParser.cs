@@ -53,7 +53,7 @@ namespace NewsReader
                 {
                     hashTag = "#null";
                 }
-                Article article = new NewsArticle(GUID, title, date, description, category, hashTag, WebsiteID);
+                Article article = new Article(GUID, title, date, description, category, hashTag, WebsiteID);
                 list.Add(article);
             }
             return list;

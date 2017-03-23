@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NewsReader
+﻿namespace NewsReader
 {
-    class NewsArticle : Article
+    using System;
+    using System.Collections.Generic;
+
+    public partial class Article
     {
         private const int TWEET_LENGTH = 136;
 
-        public NewsArticle(String guid, String title, DateTime date, String desc, String category, String hashtag, int websiteID)
+        public Article(String guid, String title, DateTime date, String desc, String category, String hashtag, int websiteID)
         {
             GUID = guid;
             Title = title;
@@ -50,3 +47,4 @@ namespace NewsReader
 
     }
 }
+

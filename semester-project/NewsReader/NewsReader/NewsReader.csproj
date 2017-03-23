@@ -70,7 +70,6 @@
       <DependentUpon>NewsStorage.tt</DependentUpon>
     </Compile>
     <Compile Include="News.cs" />
-    <Compile Include="NewsArticle.cs" />
     <Compile Include="NewsStorage.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -86,6 +85,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>NewsStorage.edmx</DependentUpon>
     </Compile>
+    <Compile Include="PartialClasses\Article.cs" />
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
