@@ -69,6 +69,7 @@
     <Compile Include="Article.cs">
       <DependentUpon>NewsModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="News.cs" />
     <Compile Include="NewsModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

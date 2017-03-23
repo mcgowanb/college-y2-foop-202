@@ -20,6 +20,7 @@ namespace NewsReader
     /// </summary>
     public partial class MainWindow : Window
     {
+        private News news;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,7 +28,8 @@ namespace NewsReader
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            news = new News();
+            lbxArticles.ItemsSource = news.CurrentNewsArticles;
         }
         private void MenuItemSettings_Click(object sender, RoutedEventArgs e)
         {
@@ -50,11 +52,11 @@ namespace NewsReader
         }
         private void WebSiteButton_Checked(object sender, RoutedEventArgs e)
         {
-           
+
         }
         private void lbxTweets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-           
+
         }
         private void lbxTweets_MouseClick(object sender, MouseButtonEventArgs e)
         {
@@ -62,15 +64,16 @@ namespace NewsReader
         }
         private void btnLoadTweets_Click(object sender, RoutedEventArgs e)
         {
-          
+
         }
         private void lbxNewsArticles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-          
+
         }
         private void cbxWebSites_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-         
+
         }
+       
     }
 }
