@@ -4,6 +4,25 @@
              xmlns:local="clr-namespace:NewsReader"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <DataTemplate x:Key="ArticleList">
+            <Grid Margin="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image Grid.RowSpan="2" Grid.Column="0" Source="{Binding Website.IconPath}" />
+                
+                <Label Content="{Binding Title}" Grid.Column="1" Grid.Row="0" Margin="10,0,0,0"/>
+                <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
+                    <Label Content="{Binding HashTag}" />
+                    <Label Content="{Binding Date}"   ContentStringFormat="ddd MMM yyyy HH:mm" />
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>

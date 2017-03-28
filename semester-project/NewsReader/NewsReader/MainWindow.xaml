@@ -88,7 +88,7 @@
             </Grid>
             <!--End Right Side Buttons-->
 
-            <ListView Name="lbxArticles" Margin="10" Grid.Row="1" Grid.Column="0">
+            <ListView Name="lbxArticles" Margin="10" Grid.Row="1" Grid.Column="0" ItemTemplate="{StaticResource ArticleList}" SelectionChanged="lbxArticles_SelectionChanged">
                 <!--<ListView.View>
                     <GridView>
                         <GridViewColumn Header="Icon"  Width="50" DisplayMemberBinding="{Binding Title}" />

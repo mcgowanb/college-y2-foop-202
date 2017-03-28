@@ -7,6 +7,9 @@
     {
         private const int TWEET_LENGTH = 136;
 
+        private String iconUrl;
+        
+
         public Article(String guid, String title, DateTime date, String desc, String category, String hashtag, int websiteID)
         {
             GUID = guid;
@@ -16,6 +19,10 @@
             Category = category;
             HashTag = SetHashTag(hashtag);
             WebsiteID = websiteID;
+        }
+        public Article()
+        {
+
         }
 
 
@@ -45,6 +52,23 @@
             return String.Format("#{0}", tag.ToLower().Replace(" ", ""));
         }
 
+        public String getIconUrl()
+        {
+            String returnString = "";
+            switch (this.WebsiteID)
+            {
+                case 1:
+                    returnString = "images/journal.ico";
+                    break;
+                case 2:
+                    returnString = "images/the42.png";
+                    break;
+                case 3:
+                    returnString = "images/dailyEdge.ico";
+                    break;
+            }
+            return returnString;
+        }
     }
 }
 

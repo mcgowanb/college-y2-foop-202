@@ -52,7 +52,9 @@ namespace NewsReader
         }
         private void WebSiteButton_Checked(object sender, RoutedEventArgs e)
         {
-
+            RadioButton rb = sender as RadioButton;
+            String selected = rb.Content.ToString();
+            lbxArticles.ItemsSource = news.FilterArticlesByName(selected);
         }
         private void lbxTweets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -80,6 +82,12 @@ namespace NewsReader
             news.RefreshArticles();
             lbxArticles.ItemsSource = null;
             lbxArticles.ItemsSource = news.CurrentNewsArticles;
+        }
+
+        private void lbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Article a = lbxArticles.SelectedItem as Article;
+            wbDisplay.Source = new Uri(a.GUID);
         }
     }
 }
