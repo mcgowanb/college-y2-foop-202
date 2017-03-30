@@ -54,7 +54,9 @@ namespace NewsReader
         {
             RadioButton rb = sender as RadioButton;
             String selected = rb.Content.ToString();
-            lbxArticles.ItemsSource = news.FilterArticlesByName(selected);
+            news.FilterArticlesByName(selected);
+            lbxArticles.ItemsSource = null;
+            lbxArticles.ItemsSource = news.CurrentNewsArticles;
         }
         private void lbxTweets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

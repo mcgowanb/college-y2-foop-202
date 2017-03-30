@@ -65,10 +65,13 @@ namespace NewsReader
             InsertRecords();
         }
 
-        internal List<Article> FilterArticlesByName(string selected)
+        public void FilterArticlesByName(string selected)
         {
-            //var query = from a in db.Articles
-                       return null;
+            var query = from a in db.Articles
+                        where a.Website.Name.Equals(selected)
+                        select a;
+
+            CurrentNewsArticles = query.ToList();
         }
 
         /// <summary>

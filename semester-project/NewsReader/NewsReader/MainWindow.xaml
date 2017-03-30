@@ -44,7 +44,7 @@
 
                 <StackPanel Grid.Column="0" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/images/journal.ico" />
-                    <RadioButton Margin="10" Content="The Journal" VerticalAlignment="Center" GroupName="WebSite" Checked="WebSiteButton_Checked"/>
+                    <RadioButton Margin="10" Content="The Journal" VerticalAlignment="Center" GroupName="WebSite" Checked="WebSiteButton_Checked" Tag="1"/>
                 </StackPanel>
                 <StackPanel Grid.Column="1" Margin="5" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/images/dailyEdge.ico" />
