@@ -102,5 +102,10 @@ namespace NewsReader
                 db.SaveChanges();
             }
         }
+
+        private void LoadTwitterFeed()
+        {
+
+        }
     }
 }
