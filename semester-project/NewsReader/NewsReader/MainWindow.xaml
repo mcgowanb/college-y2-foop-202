@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NewsReader"
         mc:Ignorable="d"
-          Title="NewsReader News Tweeting Application" Height="800" Width="1200" WindowStartupLocation="CenterScreen"
+          Title="NewsReader News Tweeting Application" WindowState="Maximized"
         Loaded="Window_Loaded">
 
     <Window.CommandBindings>
@@ -89,12 +89,6 @@
             <!--End Right Side Buttons-->
 
             <ListView Name="lbxArticles" Margin="10" Grid.Row="1" Grid.Column="0" ItemTemplate="{StaticResource ArticleList}" SelectionChanged="lbxArticles_SelectionChanged">
-                <!--<ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Icon"  Width="50" DisplayMemberBinding="{Binding Title}" />
-                        <GridViewColumn Header="Title" DisplayMemberBinding="{Binding Title}" />
-                    </GridView>
-                </ListView.View>-->
             </ListView>
             <ListBox Name="lbxTweets" Margin="10" Grid.Row="2" Grid.Column="0" SelectionChanged="lbxTweets_SelectionChanged">
                 <ListBox.ItemTemplate>

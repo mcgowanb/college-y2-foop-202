@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TweetSharp;
 
 namespace NewsReader
 {
@@ -13,12 +14,22 @@ namespace NewsReader
         public List<Website> Websites { get; private set; }
         public List<Article> CurrentNewsArticles { get; private set; }
         public List<Article> NewArticles { get; private set; }
+        private TwitterFactory twitterFactory;
+
+        public List<TwitterStatus> TwitterTimeline {  get; private set;}
         NewsEntities db;
         public News()
         {
             db = new NewsEntities();
             LoadWebsiteList();
             LoadCurrentNewsArticles();
+            twitterFactory = new TwitterFactory(
+                Utility.GetAccessToken(),
+                Utility.GetAccessSecret(),
+                Utility.GetConsumeKey(),
+                Utility.GetConsumerSecret(),
+                Utility.GetUserID()
+                );
         }
 
         private void LoadWebsiteList()
@@ -60,6 +71,11 @@ namespace NewsReader
                 XmlParser p = new XmlParser(url);
                 CurrentNewsArticles.AddRange(p.FetchArticles());
             }
+
+            var query = from a in CurrentNewsArticles
+                        orderby a.Date descending
+                        select a;
+            CurrentNewsArticles = query.ToList();
 
             DeleteRecords();
             InsertRecords();
@@ -103,9 +119,9 @@ namespace NewsReader
             }
         }
 
-        private void LoadTwitterFeed()
+        public void LoadTwitterFeed()
         {
-
+            TwitterTimeline = twitterFactory.LoadTwitterTimeline();
         }
     }
 }

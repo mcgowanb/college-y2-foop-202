@@ -60,24 +60,27 @@ namespace NewsReader
         }
         private void lbxTweets_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
+            TweetSharp.TwitterStatus selected = lbxTweets.SelectedItem as TweetSharp.TwitterStatus;
+            if (selected != null)
+            {
+                String s = String.Format("{0}{1}", Utility.BASELINE_URL, selected.IdStr);
+                wbDisplay.Source = new Uri(s);
+            }
         }
-        private void lbxTweets_MouseClick(object sender, MouseButtonEventArgs e)
-        {
-
-        }
+      
         private void btnLoadTweets_Click(object sender, RoutedEventArgs e)
         {
-
+            news.LoadTwitterFeed();
+            lbxTweets.ItemsSource = news.TwitterTimeline;
         }
         private void lbxNewsArticles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-
+            //publish article
         }
-        private void cbxWebSites_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
+        //private void cbxWebSites_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        //{
 
-        }
+        //}
 
         private void RefreshArticles_Click(object sender, RoutedEventArgs e)
         {
