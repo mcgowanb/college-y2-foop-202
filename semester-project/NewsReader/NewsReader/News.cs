@@ -16,7 +16,7 @@ namespace NewsReader
         public List<Article> NewArticles { get; private set; }
         private TwitterFactory twitterFactory;
 
-        public List<TwitterStatus> TwitterTimeline {  get; private set;}
+        public List<TwitterStatus> TwitterTimeline { get; private set; }
         NewsEntities db;
         public News()
         {
@@ -122,6 +122,23 @@ namespace NewsReader
         public void LoadTwitterFeed()
         {
             TwitterTimeline = twitterFactory.LoadTwitterTimeline();
+        }
+
+        public void RefreshTwitterFactory()
+        {
+            twitterFactory = null;
+            twitterFactory = new TwitterFactory(
+                    Utility.GetAccessToken(),
+                    Utility.GetAccessSecret(),
+                    Utility.GetConsumeKey(),
+                    Utility.GetConsumerSecret(),
+                    Utility.GetUserID()
+                );
+        }
+
+        public String PublishTweet(Article article)
+        {
+            return twitterFactory.Push(article.ToString());
         }
     }
 }

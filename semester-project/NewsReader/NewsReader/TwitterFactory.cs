@@ -32,7 +32,7 @@ namespace NewsReader
             this.accessTokenSecret = accessTokenSecret;
             this.consumerKey = consumerKey;
             this.consumerSecret = consumerSecret;
-            this.userID = Int64.Parse(userID);
+            Int64.TryParse(userID, out this.userID);
 
             service = new TwitterService(consumerKey, consumerSecret);
             options = new ListTweetsOnUserTimelineOptions()
@@ -63,29 +63,29 @@ namespace NewsReader
             return status;
         }
 
-        public Boolean isDuplicateTweet(string tweet)
-        {
-            Boolean duplicate = false;
-            
-            service.AuthenticateWith(accessToken, accessTokenSecret);
-            ListTweetsOnUserTimelineOptions options = new ListTweetsOnUserTimelineOptions()
-            {
-                UserId = userID,
-                Count = 5
-            };
+        //public Boolean isDuplicateTweet(string tweet)
+        //{
+        //    Boolean duplicate = false;
 
-            IEnumerable<TwitterStatus> currentTweets = service.ListTweetsOnUserTimeline(options);
-            string check = tweet.Substring(0, 20);
-            foreach (var cTweet in currentTweets)
-            {
-                if ((cTweet.Text != null) && (cTweet.Text.Contains(check)))
-                {
-                    duplicate = true;
-                    break;
-                }
-            }
-            return duplicate;
-        }
+        //    service.AuthenticateWith(accessToken, accessTokenSecret);
+        //    ListTweetsOnUserTimelineOptions options = new ListTweetsOnUserTimelineOptions()
+        //    {
+        //        UserId = userID,
+        //        Count = 5
+        //    };
+
+        //    IEnumerable<TwitterStatus> currentTweets = service.ListTweetsOnUserTimeline(options);
+        //    string check = tweet.Substring(0, 20);
+        //    foreach (var cTweet in currentTweets)
+        //    {
+        //        if ((cTweet.Text != null) && (cTweet.Text.Contains(check)))
+        //        {
+        //            duplicate = true;
+        //            break;
+        //        }
+        //    }
+        //    return duplicate;
+        //}
 
         public List<TwitterStatus> LoadTwitterTimeline()
         {

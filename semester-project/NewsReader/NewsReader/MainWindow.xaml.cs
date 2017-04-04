@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -70,17 +71,21 @@ namespace NewsReader
       
         private void btnLoadTweets_Click(object sender, RoutedEventArgs e)
         {
-            news.LoadTwitterFeed();
-            lbxTweets.ItemsSource = news.TwitterTimeline;
+            try
+            {
+                news.LoadTwitterFeed();
+                lbxTweets.ItemsSource = news.TwitterTimeline;
+            }
+            catch(ArgumentNullException ex)
+            {
+                MessageBox.Show("You have no Twitter API Details Set, please enter them first before continuing");
+                Settings settings = new Settings();
+                settings.Show();
+                news.RefreshTwitterFactory();
+            }
+            
         }
-        private void lbxNewsArticles_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            //publish article
-        }
-        //private void cbxWebSites_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-
-        //}
+       
 
         private void RefreshArticles_Click(object sender, RoutedEventArgs e)
         {
@@ -92,7 +97,35 @@ namespace NewsReader
         private void lbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Article a = lbxArticles.SelectedItem as Article;
+
+            SupressScriptErrors();
             wbDisplay.Source = new Uri(a.GUID);
+        }
+
+
+        private void btnPublish_Click(object sender, RoutedEventArgs e)
+        {
+            Article a = lbxArticles.SelectedItem as Article;
+            if(a == null)
+            {
+                MessageBox.Show("No Article Selected, Please select an article first");
+            }
+            else
+            {
+                MessageBox.Show(news.PublishTweet(a));
+            }
+        }
+
+        /// <summary>
+        /// Supress the irritating script erros from the web browser.
+        /// </summary>
+        private void SupressScriptErrors()
+        {
+            dynamic activeX = wbDisplay.GetType().InvokeMember("ActiveXInstance",
+                    BindingFlags.GetProperty | BindingFlags.Instance | BindingFlags.NonPublic,
+                    null, wbDisplay, new object[] { });
+
+            activeX.Silent = true;
         }
     }
 }

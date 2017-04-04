@@ -17,13 +17,32 @@
                 </Grid.RowDefinitions>
 
                 <Image Grid.RowSpan="2" Grid.Column="0" Source="{Binding Website.IconPath}" />
-                
-                <Label Content="{Binding Title}" Grid.Column="1" Grid.Row="0" Margin="10,0,0,0"/>
+
+                <TextBlock  Width="550" MaxWidth="550" Text="{Binding Title}" Grid.Column="1" Grid.Row="0" Margin="10,0,0,0"/>
                 <StackPanel Orientation="Horizontal" Grid.Column="1" Grid.Row="1" Margin="10,0,0,0">
                     <Label Content="{Binding HashTag}" />
                 </StackPanel>
                 <Label Content="{Binding Date}" ContentStringFormat="dd/MM/yy HH:mm" 
                        Grid.Row="0" Grid.RowSpan="2" Grid.Column="2" HorizontalContentAlignment="Right" HorizontalAlignment="Right" />
+            </Grid>
+        </DataTemplate>
+
+        <DataTemplate x:Key="TweetList">
+            <Grid Margin="3">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="120" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image Grid.Column="0" Source="images/twitter-square.png" />
+
+                <TextBlock TextWrapping="Wrap" Text="{Binding Text}" Grid.Column="1" Margin="10,0,0,0" Width="550" MaxWidth="550"/>
+                <Label Content="{Binding CreatedDate}" ContentStringFormat="dd/MM/yy HH:mm" 
+                       Grid.Column="2" HorizontalContentAlignment="Right" HorizontalAlignment="Right" />
             </Grid>
         </DataTemplate>
     </Application.Resources>
