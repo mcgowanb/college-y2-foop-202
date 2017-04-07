@@ -1,0 +1,73 @@
+﻿<Window x:Class="CA_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CA_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="547" Width="654" WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height=".3*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Grid.Column="0" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Car Type: " Grid.Row="0" Grid.Column="0" />
+            <ComboBox Name="cbxCarType" 
+                      Grid.Row="0" Grid.Column="1" 
+                      HorizontalAlignment="Right"  
+                      VerticalAlignment="Top" Width="120"
+                      DisplayMemberPath="Name"
+                      SelectedValue="ID"
+                      />
+
+            <Label Content="Start Date" Grid.Row="1" Grid.Column="0"/>
+            <DatePicker Name="dpStarDate" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+            <Label Content="End Date" Grid.Row="2" Grid.Column="0"/>
+            <DatePicker Name="dpEndDate" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+
+            <Button Name="btnSearch" Grid.Row="3" Grid.Column="1" Content="Search" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Available Cars" Grid.Row="0" Style="{StaticResource labelBottom}"/>
+            <ListBox Name="lbxAvailableCars" Grid.Row="1"/>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+            </Grid.RowDefinitions>
+
+            <Label Content="Shifty Nifty Car Rentals" Grid.Row="0" Style="{StaticResource AppTitle}"/>
+            <Image Source="images/passat.png" Grid.Row="1" Margin="15"/>
+
+        </Grid>
+
+
+    </Grid>
+</Window>
