@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Booking">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CarID" Type="Int32" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Car" Relationship="Model.FK_Booking_Car" FromRole="Booking" ToRole="Car" />
+  </EntityType>
+  <EntityContainer Name="CarRentalEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Bookings" EntityType="Self.Booking" />
+    <EntitySet Name="CarTypes" EntityType="Model.CarType" />
+    <AssociationSet Name="FK_CarType_CarType" Association="Model.FK_CarType_CarType">
+      <End Role="CarType" EntitySet="CarTypes" />
+      <End Role="CarType1" EntitySet="CarTypes" />
+    </AssociationSet>
+    <EntitySet Name="Cars" EntityType="Model.Car" />
+    <AssociationSet Name="FK_Booking_Car" Association="Model.FK_Booking_Car">
+      <End Role="Car" EntitySet="Cars" />
+      <End Role="Booking" EntitySet="Bookings" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Car_CarType" Association="Model.FK_Car_CarType">
+      <End Role="CarType" EntitySet="CarTypes" />
+      <End Role="Car" EntitySet="Cars" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="CarType">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="Cars" Relationship="Model.FK_Car_CarType" FromRole="CarType" ToRole="Car" />
+  </EntityType>
+  <Association Name="FK_CarType_CarType">
+    <End Type="Model.CarType" Role="CarType" Multiplicity="1" />
+    <End Type="Model.CarType" Role="CarType1" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="CarType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="CarType1">
+        <PropertyRef Name="ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Car">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Make" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="Model" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+    <Property Name="CarTypeID" Type="Int32" />
+    <NavigationProperty Name="Bookings" Relationship="Model.FK_Booking_Car" FromRole="Car" ToRole="Booking" />
+    <NavigationProperty Name="CarType" Relationship="Model.FK_Car_CarType" FromRole="Car" ToRole="CarType" />
+  </EntityType>
+  <Association Name="FK_Booking_Car">
+    <End Type="Model.Car" Role="Car" Multiplicity="0..1" />
+    <End Type="Model.Booking" Role="Booking" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Car">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Booking">
+        <PropertyRef Name="CarID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Car_CarType">
+    <End Type="Model.CarType" Role="CarType" Multiplicity="0..1" />
+    <End Type="Model.Car" Role="Car" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CarType">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Car">
+        <PropertyRef Name="CarTypeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

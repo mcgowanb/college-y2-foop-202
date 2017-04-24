@@ -1,0 +1,14 @@
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\bin\Debug\exercises-q3.exe.config
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\bin\Debug\exercises-q3.exe
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\bin\Debug\exercises-q3.pdb
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3.csprojResolveAssemblyReference.cache
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\MainWindow.g.cs
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\App.g.cs
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3_MarkupCompile.cache
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3_MarkupCompile.lref
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\MainWindow.baml
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3.g.resources
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises_q3.Properties.Resources.resources
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3.csproj.GenerateResource.Cache
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3.exe
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q3\obj\Debug\exercises-q3.pdb

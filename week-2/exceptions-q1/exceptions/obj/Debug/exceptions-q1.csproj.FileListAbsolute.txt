@@ -1,0 +1,3 @@
+C:\dev\college\2016-2017\foop-202\week-2\exceptions-q1\exceptions\bin\Debug\exceptions.exe.config
+C:\dev\college\2016-2017\foop-202\week-2\exceptions-q1\exceptions\obj\Debug\exceptions.exe
+C:\dev\college\2016-2017\foop-202\week-2\exceptions-q1\exceptions\obj\Debug\exceptions.pdb

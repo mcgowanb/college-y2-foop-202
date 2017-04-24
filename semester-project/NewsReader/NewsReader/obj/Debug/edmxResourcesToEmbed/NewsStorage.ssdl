@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Articles">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WebsiteID" Type="int" />
+    <Property Name="Category" Type="nchar" MaxLength="10" />
+    <Property Name="Date" Type="datetime" />
+    <Property Name="Description" Type="text" />
+    <Property Name="GUID" Type="varchar" MaxLength="150" />
+    <Property Name="HashTag" Type="varchar" MaxLength="50" />
+    <Property Name="Link" Type="varchar" MaxLength="150" />
+    <Property Name="ThumbLink" Type="varchar" MaxLength="150" />
+    <Property Name="Title" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="Websites">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="URL" Type="varchar" MaxLength="50" />
+    <Property Name="IconPath" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Articles_Websites">
+    <End Role="Websites" Type="Self.Websites" Multiplicity="0..1" />
+    <End Role="Articles" Type="Self.Articles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Websites">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Articles">
+        <PropertyRef Name="WebsiteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="Articles" EntityType="Self.Articles" Schema="news" store:Type="Tables" />
+    <EntitySet Name="Websites" EntityType="Self.Websites" Schema="news" store:Type="Tables" />
+    <AssociationSet Name="FK_Articles_Websites" Association="Self.FK_Articles_Websites">
+      <End Role="Websites" EntitySet="Websites" />
+      <End Role="Articles" EntitySet="Articles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

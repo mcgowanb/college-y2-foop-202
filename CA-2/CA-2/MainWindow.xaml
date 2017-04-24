@@ -36,16 +36,16 @@
                       HorizontalAlignment="Right"  
                       VerticalAlignment="Top" Width="120"
                       DisplayMemberPath="Name"
-                      SelectedValue="ID"
+                      SelectedValuePath="ID"
                       />
 
             <Label Content="Start Date" Grid.Row="1" Grid.Column="0"/>
-            <DatePicker Name="dpStarDate" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <DatePicker x:Name="dpStartDate" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
             <Label Content="End Date" Grid.Row="2" Grid.Column="0"/>
             <DatePicker Name="dpEndDate" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
-            <Button Name="btnSearch" Grid.Row="3" Grid.Column="1" Content="Search" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5"/>
+            <Button Name="btnSearch" Grid.Row="3" Grid.Column="1" Content="Search" VerticalAlignment="Center" HorizontalAlignment="Right" Padding="5" Click="btnSearch_Click"/>
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Margin="10">
@@ -54,7 +54,7 @@
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <Label Content="Available Cars" Grid.Row="0" Style="{StaticResource labelBottom}"/>
-            <ListBox Name="lbxAvailableCars" Grid.Row="1"/>
+            <ListBox Name="lbxAvailableCars" Grid.Row="1" SelectionChanged="lbxAvailableCars_SelectionChanged"/>
         </Grid>
 
         <Grid Grid.Row="0" Grid.Column="1" Margin="10">
@@ -68,6 +68,34 @@
 
         </Grid>
 
+        <Grid Grid.Row="1" Grid.Column="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Label Content="Selected Car" Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource labelBottom}"/>
+            <Label Content="CarID: " Grid.Row="1" Grid.Column="0"/>
+            <Label Content="Make: " Grid.Row="2" Grid.Column="0"/>
+            <Label Content="Model: " Grid.Row="3" Grid.Column="0"/>
+            <Label Content="Rental Date: " Grid.Row="4" Grid.Column="0"/>
+            <Label Content="Return Date: " Grid.Row="5" Grid.Column="0"/>
+
+            <Label Name="lblCarID" Grid.Row="1" Grid.Column="1"/>
+            <Label Name="lblCarMake" Grid.Row="2" Grid.Column="1"/>
+            <Label Name="lblCarModel" Grid.Row="3" Grid.Column="1"/>
+            <Label Name="lblCarHireDate" Grid.Row="4" Grid.Column="1"/>
+            <Label Name="lblCarReturnDate" Grid.Row="5" Grid.Column="1"/>
+            <Button Name="btnBook" Content="Book Now" Grid.Row="6" Grid.Column="1" IsEnabled="False" Click="btnBook_Click"/>
+        </Grid>
 
     </Grid>
 </Window>

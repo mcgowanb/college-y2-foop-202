@@ -1,0 +1,13 @@
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\bin\Debug\exercises-q5.exe.config
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\bin\Debug\exercises-q5.exe
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\bin\Debug\exercises-q5.pdb
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\MainWindow.g.cs
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\App.g.cs
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5_MarkupCompile.cache
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5_MarkupCompile.lref
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\MainWindow.baml
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5.g.resources
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises_q5.Properties.Resources.resources
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5.csproj.GenerateResource.Cache
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5.exe
+C:\dev\college\2016-2017\foop-202\week-3\exercises\exercises-q5\obj\Debug\exercises-q5.pdb

@@ -1,0 +1,14 @@
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\bin\Debug\exception-q9.exe.config
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\bin\Debug\exception-q9.exe
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\bin\Debug\exception-q9.pdb
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9.csprojResolveAssemblyReference.cache
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\MainWindow.g.cs
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\App.g.cs
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9_MarkupCompile.cache
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9_MarkupCompile.lref
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\MainWindow.baml
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9.g.resources
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception_q9.Properties.Resources.resources
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9.csproj.GenerateResource.Cache
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9.exe
+C:\dev\college\2016-2017\foop-202\week-2\exception-q9\exception-q9\obj\Debug\exception-q9.pdb

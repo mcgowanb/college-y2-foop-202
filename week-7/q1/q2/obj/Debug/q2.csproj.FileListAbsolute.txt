@@ -1,0 +1,6 @@
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\bin\Debug\q2.exe.config
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\bin\Debug\q2.exe
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\bin\Debug\q2.pdb
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\obj\Debug\q2.csprojResolveAssemblyReference.cache
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\obj\Debug\q2.exe
+C:\dev\college\2016-2017\foop-202\week-7\q1\q2\obj\Debug\q2.pdb

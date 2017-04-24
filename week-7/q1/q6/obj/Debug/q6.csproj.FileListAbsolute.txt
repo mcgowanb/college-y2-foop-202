@@ -1,0 +1,5 @@
+C:\dev\college\2016-2017\foop-202\week-7\q1\q6\bin\Debug\q6.exe.config
+C:\dev\college\2016-2017\foop-202\week-7\q1\q6\bin\Debug\q6.exe
+C:\dev\college\2016-2017\foop-202\week-7\q1\q6\bin\Debug\q6.pdb
+C:\dev\college\2016-2017\foop-202\week-7\q1\q6\obj\Debug\q6.exe
+C:\dev\college\2016-2017\foop-202\week-7\q1\q6\obj\Debug\q6.pdb
