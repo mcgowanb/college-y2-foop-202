@@ -11,6 +11,7 @@ namespace NewsReader
 {
     class News
     {
+        #region params
         public List<Website> Websites { get; private set; }
         public List<Article> CurrentNewsArticles { get; private set; }
         public List<Article> NewArticles { get; private set; }
@@ -18,6 +19,7 @@ namespace NewsReader
 
         public List<TwitterStatus> TwitterTimeline { get; private set; }
         NewsEntities db;
+        #endregion params
         public News()
         {
             db = new NewsEntities();
@@ -32,6 +34,10 @@ namespace NewsReader
                 );
         }
 
+
+        /// <summary>
+        /// returns a list of websites from the db
+        /// </summary>
         private void LoadWebsiteList()
         {
             var query = from wb in db.Websites
@@ -81,6 +87,11 @@ namespace NewsReader
             InsertRecords();
         }
 
+
+        /// <summary>
+        /// filters the current articles by website source
+        /// </summary>
+        /// <param name="selected"></param>
         public void FilterArticlesByName(string selected)
         {
             var query = from a in db.Articles
@@ -124,6 +135,10 @@ namespace NewsReader
             TwitterTimeline = twitterFactory.LoadTwitterTimeline();
         }
 
+
+        /// <summary>
+        /// recreates the twitterfactory object as settings have changed
+        /// </summary>
         public void RefreshTwitterFactory()
         {
             twitterFactory = null;
@@ -136,6 +151,12 @@ namespace NewsReader
                 );
         }
 
+
+        /// <summary>
+        /// publish tweet to twitter, return status t dispay to user
+        /// </summary>
+        /// <param name="article"></param>
+        /// <returns></returns>
         public String PublishTweet(Article article)
         {
             return twitterFactory.Push(article.ToString());

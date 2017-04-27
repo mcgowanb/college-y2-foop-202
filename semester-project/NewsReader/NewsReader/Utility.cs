@@ -8,6 +8,9 @@ namespace NewsReader
 {
     static class Utility
     {
+        /// <summary>
+        /// Static utility wrapper class for returning data from the system
+        /// </summary>
         public enum WebSites { TheJournal, The42, TheDailyEdge };
         public const String BASELINE_URL = "https://twitter.com/ROINewsNow/status/";
         public static String GetWebURI(WebSites site)

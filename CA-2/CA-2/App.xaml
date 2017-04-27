@@ -14,5 +14,26 @@
             <Setter Property="FontSize" Value="15px" />
             <Setter Property="Margin" Value="15,5"/>
         </Style>
+        
+        
+        <!-- List Box Style for empy boxes-->
+        <Style TargetType="ListBox" x:Key="ListStyle" BasedOn="{StaticResource {x:Type ListBox}}">
+            <Style.Triggers>
+                <DataTrigger 
+            Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" 
+            Value="0"
+            >
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate>
+                                <ListBox>
+                                <TextBlock>No available vehicles</TextBlock>
+                                </ListBox>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
 </Application>

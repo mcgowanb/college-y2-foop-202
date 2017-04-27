@@ -9,7 +9,7 @@ namespace CA_2
 
         public override string ToString()
         {
-            return String.Format("{0} {1}", Make.Trim(), Model.Trim());
+            return String.Format("{0} {1}", Make, Model);
         }
     }
 }

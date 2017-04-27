@@ -1,17 +1,12 @@
-﻿using System;
+﻿/* database connection string
+ * Server=tcp:college-db-server.database.windows.net,1433;Initial Catalog=news-reader;Persist Security Info=False;User ID={brian};Password={CollegeDb1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+ */
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CA_2
 {
@@ -40,19 +35,21 @@ namespace CA_2
 
         private void btnSearch_Click(object sender, RoutedEventArgs e)
         {
+            //using try catch to handle empty dates & no type selection and display a prompt
             try
             {
                 string start = dpStartDate.Text;
                 string end = dpEndDate.Text;
+
+                if(cbxCarType.SelectedIndex == -1)
+                    throw new FormatException("Please choose a vehicle type");
+
                 if (start.Length == 0 || end.Length == 0)
                     throw new FormatException("Please enter a start and end date");
 
                 int carType = Convert.ToInt32(cbxCarType.SelectedValue);
 
-                List<Booking> bookings = GetBookedVehicles(start, end);
-                List<Car> list = GetCarsFromDB(carType);
-                List<Car> availableCars = FilterBookedCars(bookings, list);
-                lbxAvailableCars.ItemsSource = list;
+                lbxAvailableCars.ItemsSource = GetAvailableVehicles(start, end, carType);
             }
             catch (FormatException fe)
             {
@@ -61,68 +58,48 @@ namespace CA_2
 
         }
 
-
         /// <summary>
-        /// Removes cars from the vehicleList if they are a match on the bookings list result set.
-        /// </summary>
-        /// <param name="bookings"></param>
-        /// <param name="vehicleList"></param>
-        /// <returns></returns>
-        private List<Car> FilterBookedCars(List<Booking> bookings, List<Car> vehicleList)
-        {
-            foreach (var item in bookings)
-            {
-                var matchingvalues = vehicleList
-                    .Where(car => car.ID.Equals(item.CarID));
-                if (matchingvalues != null)
-                {
-                    vehicleList.RemoveAll(car => car.ID == item.CarID);
-                }
-            }
-            return vehicleList;
-        }
-
-        /// <summary>
-        /// returns any bookings that match the start or end date entered.
+        /// Gets available vehicles for hire. Checkes the booked table and removes any cars that are booked
+        /// for the date period that has been selected
         /// </summary>
         /// <param name="start"></param>
         /// <param name="end"></param>
         /// <returns></returns>
-        private List<Booking> GetBookedVehicles(string start, string end)
+        private List<Car> GetAvailableVehicles(string start, string end, int carType)
         {
             DateTime startDate = Convert.ToDateTime(start);
             DateTime endDate = Convert.ToDateTime(end);
 
-            var query = from b in db.Bookings
-                        where b.StartDate >= startDate
-                        && b.EndDate <= endDate
-                        select b;
+            var bookings = from b in db.Bookings
+                           where !((startDate < b.StartDate && endDate < b.EndDate) || startDate > b.EndDate)
+                           select b.CarID;
 
-            return query.ToList();
 
+            List<Car> availableCars = FilterCars(bookings, carType);
+            return availableCars;
         }
 
 
         /// <summary>
-        /// returns a list of cars from the db.
+        /// returns a list of cars from the db, excluding the ones that have bookings
         /// </summary>
         /// <param name="carType"></param>
         /// <returns></returns>
-        private List<Car> GetCarsFromDB(int carType)
+        private List<Car> FilterCars(IQueryable<int?> bookings, int carType)
         {
-
             if (carType == 0)
+            //all car types
             {
-                var query = from c in db.Cars
-                            select c;
-                return query.ToList();
+                var results = from c in db.Cars
+                              select c;
+                    return results.ToList();
             }
             else
             {
-                var query = from c in db.Cars
-                            where c.CarTypeID == carType
-                            select c;
-                return query.ToList();
+                var results = from c in db.Cars
+                              where !(bookings).Contains(c.ID) && c.CarTypeID == carType
+                              select c;
+                return results.ToList();
             }
         }
 
@@ -144,37 +121,67 @@ namespace CA_2
 
         private void btnBook_Click(object sender, RoutedEventArgs e)
         {
-            ResetScreen();
-            //Car c = lbxAvailableCars.SelectedItem as Car;
-            //if (c != null)
-            //{
-            //    Booking b = new Booking
-            //    {
-            //        CarID = c.ID,
-            //        StartDate = Convert.ToDateTime(dpStartDate.Text),
-            //        EndDate = Convert.ToDateTime(dpEndDate.Text)
-            //    };
-
-            //    db.Bookings.Add(b);
-            //    int rValue = db.SaveChanges();
-            //    String message = String.Format("Booking Confirmation\n\n{0} record inserted\nCarID: {1}\nMake: {2}\nModel: {3}\nRental Date: {4}\nReturn Date: {5}",
-            //        rValue,
-            //        c.ID,
-            //        c.Make,
-            //        c.Model,
-            //        dpStartDate.Text,
-            //        dpEndDate.Text
-            //        );
-            //    MessageBox.Show(message);
-            //    ResetScreen();
-            //}
+            Car c = lbxAvailableCars.SelectedItem as Car;
+            if (c != null)
+            {
+                String message = SaveBooking(c);
+                MessageBox.Show(message);
+                ResetScreen();
+            }
         }
 
+        /// <summary>
+        /// persist the vehicle booking to the database
+        /// </summary>
+        /// <param name="c"></param>
+        /// <returns></returns>
+        private String SaveBooking(Car c)
+        {
+            Booking b = new Booking
+            {
+                CarID = c.ID,
+                StartDate = Convert.ToDateTime(dpStartDate.Text),
+                EndDate = Convert.ToDateTime(dpEndDate.Text)
+            };
+
+            db.Bookings.Add(b);
+            int rValue = db.SaveChanges();
+            String message = String.Format("Booking Confirmation\n\n{0} record inserted\nCarID: {1}\nMake: {2}\nModel: {3}\nRental Date: {4}\nReturn Date: {5}",
+                rValue,
+                c.ID,
+                c.Make,
+                c.Model,
+                dpStartDate.Text,
+                dpEndDate.Text
+                );
+            return message;
+           
+        }
+
+
+        /// <summary>
+        /// Resets all fields on the screen
+        /// </summary>
         private void ResetScreen()
         {
             cbxCarType.SelectedItem = null;
             dpStartDate.Text = dpEndDate.Text = null;
             lblCarID.Content = lblCarMake.Content = lblCarModel.Content = lblCarHireDate.Content = lblCarReturnDate = null;
+            lbxAvailableCars.ItemsSource = null;
+        }
+
+        /// <summary>
+        /// returns car object from database based on id passed
+        /// </summary>
+        /// <param name="carID"></param>
+        /// <returns></returns>
+        private Car GetCarDetails(int carID)
+        {
+            Car car = (from c in db.Cars
+                       where c.ID == carID
+                       select c).First();
+            return car;
+
         }
 
     }

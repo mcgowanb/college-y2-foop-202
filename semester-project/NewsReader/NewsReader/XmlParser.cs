@@ -13,6 +13,7 @@ namespace NewsReader
         private List<Article> list;
         private int WebsiteID;
 
+        #region ctor
         public XmlParser(string url)
         {
             this.url = url;
@@ -21,6 +22,15 @@ namespace NewsReader
             this.WebsiteID = GenerateWebsiteID();
         }
 
+        public XmlParser() {}
+        #endregion ctor
+
+
+        /// <summary>
+        /// fetche and retuns a list of articles from the selected website,
+        /// parses the xml and returns article objects
+        /// </summary>
+        /// <returns></returns>
         public List<Article> FetchArticles()
         {
             doc.Load(url);

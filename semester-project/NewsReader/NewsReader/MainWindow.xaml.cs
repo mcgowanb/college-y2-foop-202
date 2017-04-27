@@ -1,4 +1,7 @@
-﻿using System;
+﻿/* database connection string
+ * Server=tcp:college-db-server.database.windows.net,1433;Initial Catalog=news-reader;Persist Security Info=False;User ID={brian};Password={CollegeDb1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+ */
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -81,6 +84,7 @@ namespace NewsReader
                 MessageBox.Show("You have no Twitter API Details Set, please enter them first before continuing");
                 Settings settings = new Settings();
                 settings.Show();
+                //details of object have been changed, so need to rebuild the factory
                 news.RefreshTwitterFactory();
             }
             
@@ -89,9 +93,11 @@ namespace NewsReader
 
         private void RefreshArticles_Click(object sender, RoutedEventArgs e)
         {
+            Mouse.OverrideCursor = Cursors.Wait;
             news.RefreshArticles();
             lbxArticles.ItemsSource = null;
             lbxArticles.ItemsSource = news.CurrentNewsArticles;
+            Mouse.OverrideCursor = null;
         }
 
         private void lbxArticles_SelectionChanged(object sender, SelectionChangedEventArgs e)

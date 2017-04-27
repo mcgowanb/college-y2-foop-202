@@ -15,6 +15,7 @@ namespace NewsReader
         private TwitterService service;
         private ListTweetsOnUserTimelineOptions options;
 
+        #region constructors
         public TwitterFactory()
         {
 
@@ -41,7 +42,13 @@ namespace NewsReader
                 Count = 100
             };
         }
+        #endregion constructors
 
+        /// <summary>
+        /// Push tweet to twitter via api
+        /// </summary>
+        /// <param name="tweet"></param>
+        /// <returns></returns>
         public String Push(string tweet)
         {
             SendTweetOptions options = new SendTweetOptions()
@@ -63,30 +70,11 @@ namespace NewsReader
             return status;
         }
 
-        //public Boolean isDuplicateTweet(string tweet)
-        //{
-        //    Boolean duplicate = false;
 
-        //    service.AuthenticateWith(accessToken, accessTokenSecret);
-        //    ListTweetsOnUserTimelineOptions options = new ListTweetsOnUserTimelineOptions()
-        //    {
-        //        UserId = userID,
-        //        Count = 5
-        //    };
-
-        //    IEnumerable<TwitterStatus> currentTweets = service.ListTweetsOnUserTimeline(options);
-        //    string check = tweet.Substring(0, 20);
-        //    foreach (var cTweet in currentTweets)
-        //    {
-        //        if ((cTweet.Text != null) && (cTweet.Text.Contains(check)))
-        //        {
-        //            duplicate = true;
-        //            break;
-        //        }
-        //    }
-        //    return duplicate;
-        //}
-
+        /// <summary>
+        /// returns users timeline of recent tweets.
+        /// </summary>
+        /// <returns></returns>
         public List<TwitterStatus> LoadTwitterTimeline()
         {
             service.AuthenticateWith(accessToken, accessTokenSecret);
