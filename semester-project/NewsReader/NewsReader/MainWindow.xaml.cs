@@ -76,11 +76,14 @@ namespace NewsReader
         {
             try
             {
+                Mouse.OverrideCursor = Cursors.Wait;
                 news.LoadTwitterFeed();
                 lbxTweets.ItemsSource = news.TwitterTimeline;
+                Mouse.OverrideCursor = null;
             }
-            catch(ArgumentNullException ex)
+            catch (ArgumentNullException ex)
             {
+                Mouse.OverrideCursor = null;
                 MessageBox.Show("You have no Twitter API Details Set, please enter them first before continuing");
                 Settings settings = new Settings();
                 settings.Show();

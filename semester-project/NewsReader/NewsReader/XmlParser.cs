@@ -8,11 +8,13 @@ namespace NewsReader
 {
     class XmlParser
     {
+
+        #region params
         private string url;
         private XmlDocument doc;
         private List<Article> list;
         private int WebsiteID;
-
+        #endregion params
         #region ctor
         public XmlParser(string url)
         {
