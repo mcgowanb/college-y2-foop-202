@@ -1,0 +1,68 @@
+﻿<Window x:Class="q_2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:q_2"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="467" Width="669"
+        Loaded="Window_Loaded">
+
+    <Window.Resources>
+        <DataTemplate x:Key="ProductList">
+            <Grid Margin="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="5*"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Name}" />
+                <Label Grid.Row="0" Grid.Column="2" Content="{Binding DisplayPrice, Mode=OneWay}" />
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="0">
+                    <Label Content="Colour:"/>
+                    <Label Background="{Binding Color}" Width="40"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                    <Label Content="Product Number:"/>
+                    <Label Content="{Binding ProductNumber}"/>
+                </StackPanel>
+
+            </Grid>
+        </DataTemplate>
+
+        <Style x:Key="headerLabel" TargetType="Label">
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="FontSize" Value=" 45px" />
+            <Setter Property="Margin" Value="70,10,0,0" />
+            <Setter Property="FontFamily" Value="Calibri"/>
+        </Style>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height=".6*" />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" Content="CATEGORIES" Style="{StaticResource headerLabel}"/>
+
+        <Label Grid.Row="0" Grid.Column="1" Content="PRODUCTS" Style="{StaticResource headerLabel}"/>
+
+        <ListBox Name="lbxCategories" Grid.Row="1" Grid.Column="0" SelectionChanged="lbxCategories_SelectionChanged"></ListBox>
+        <ListBox Name="lbxProducts" Grid.Row="1" Grid.Column="1" ItemTemplate="{StaticResource ProductList}"></ListBox>
+
+        <TextBox Name="txtSearch" Grid.Row="2" Grid.Column="0" Margin="10"/>
+        <Button Name="btnSearch" Content="Product Search" Grid.Row="2" Grid.Column="1" Margin="10" Click="btnSearch_Click"/>
+    </Grid>
+</Window>

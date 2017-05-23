@@ -1,0 +1,37 @@
+﻿<Window x:Class="final_exam.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:final_exam"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="462" Width="584"
+        Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Orientation="Horizontal">
+            <Label Content="Filter:" VerticalAlignment="Center"/>
+            <RadioButton Margin="10" Content="All" VerticalAlignment="Center" GroupName="EmployeeTyoe" Click="TypeFilter_Click" CommandParameter="All"/>
+            <RadioButton Margin="10" Content="Full Time" VerticalAlignment="Center" GroupName="EmployeeTyoe" Click="TypeFilter_Click" CommandParameter="FullTimeEmployee"/>
+            <RadioButton Margin="10" Content="Part Time" VerticalAlignment="Center" GroupName="EmployeeTyoe" Click="TypeFilter_Click" CommandParameter="PartTimeEmployee"/>
+        </StackPanel>
+
+        <ListBox Name="lbxEmployees" Margin="10" Grid.Row="1" Grid.Column="0" SelectionChanged="lbxEmployees_SelectionChanged"/>
+        <TextBlock Name="txtBlkPayslip" Margin="10" Grid.Row="1" Grid.Column="1"/>
+
+        <StackPanel  Grid.Row="2" Grid.Column="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Right">
+            <Label Content="Sort By" Margin="0,0,0,-13" />
+            <ComboBox x:Name="cbxSortBy" HorizontalAlignment="Right" VerticalAlignment="Top" Width="120" SelectionChanged="cbxSortBy_SelectionChanged" />
+        </StackPanel>
+    </Grid>
+</Window>
