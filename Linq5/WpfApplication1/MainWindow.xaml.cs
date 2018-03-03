@@ -121,7 +121,7 @@ namespace WpfApplication1
         }
 
         private void btn_ClickEX8(object sender, RoutedEventArgs e)
-        {
+        { 
             var query = (from o in db.Orders
                          group o by o.CustomerID into c
                          join customer in db.Customers on c.Key equals customer.CustomerID

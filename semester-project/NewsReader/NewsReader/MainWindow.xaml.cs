@@ -1,5 +1,12 @@
 ﻿/* database connection string
  * Server=tcp:college-db-server.database.windows.net,1433;Initial Catalog=news-reader;Persist Security Info=False;User ID={brian};Password={CollegeDb1};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;
+ *  You will need the following settings if not provided to enable the twitter publisher
+ *  
+ *  accessToken=4222277297-W7AxgyKv6jnGizv2y8mpCv8MpRpbqQLzaw2fOeJ
+ *  accessTokenSecret=fHrQ4JKWhskLKfwJFl5ow7FGqD1BXRW9KrlmqXgcUxaSS
+ *  consumerKey=Tg6Au8WRLlOtZQBjJI8Bk56QL
+ *  consumerSecret=uo3AZ5TCuruw5A4yP1F0998ZoYSPkyw8gpu8zfqWw8HcUMQW9T
+ *  userID=4222277297
  */
 using System;
 using System.Collections.Generic;
